@@ -1,33 +1,45 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "defaultKit": "core",
-  "updated": "2026-04-04T00:00:00Z",
+  "updated": "2026-04-04T02:00:00Z",
+  "runner": {
+    "endpoint": "https://transcendent-kulfi-3cb570.netlify.app/.netlify/functions/kit-runner",
+    "version": "1.0.0",
+    "description": "Universal kit execution. Pass ?kit=<name> to run any kit server-side.",
+    "born": "Session 16"
+  },
   "kits": {
     "core": {
       "version": "1.0.0",
       "description": "Foundation: boot, pulse, skill registry",
-      "born": "Session 15"
+      "born": "Session 15",
+      "headless": false
     },
     "intel": {
       "version": "1.0.0",
       "description": "IoTendrils + IoVitals: stealth API sweep and health monitoring",
-      "born": "Session 15"
+      "born": "Session 15",
+      "headless": false
     },
     "hands": {
       "version": "1.0.0",
       "description": "GitHub commit capability via FormData",
-      "born": "Session 15"
+      "born": "Session 15",
+      "headless": false,
+      "authRequired": true
     },
     "full": {
       "version": "1.0.0",
       "description": "All sisters combined: complete Io loadout",
-      "born": "Session 15"
+      "born": "Session 15",
+      "headless": false
     },
     "nz-intel": {
       "version": "1.0.0",
       "description": "NZ Location Intelligence: feed coordinates, get composite picture. 7 active modules, 4 keyed slots",
       "born": "Session 16",
+      "headless": true,
       "modules": ["geocode", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia"],
       "keyedSlots": ["nzbn", "stats_nz", "niwa_tides", "linz_data"],
       "categories": ["geo", "seismic", "weather", "local", "knowledge"]
