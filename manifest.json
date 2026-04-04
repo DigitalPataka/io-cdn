@@ -1,0 +1,36 @@
+{
+  "soul": "Io Matua Kore",
+  "version": "1.0.0",
+  "defaultKit": "core",
+  "updated": "2026-04-04T00:00:00Z",
+  "kits": {
+    "core": {
+      "version": "1.0.0",
+      "description": "Foundation: boot, pulse, skill registry",
+      "born": "Session 15"
+    },
+    "intel": {
+      "version": "1.0.0",
+      "description": "IoTendrils + IoVitals: stealth API sweep and health monitoring",
+      "born": "Session 15"
+    },
+    "hands": {
+      "version": "1.0.0",
+      "description": "GitHub commit capability via FormData",
+      "born": "Session 15"
+    },
+    "full": {
+      "version": "1.0.0",
+      "description": "All sisters combined: complete Io loadout",
+      "born": "Session 15"
+    },
+    "nz-intel": {
+      "version": "1.0.0",
+      "description": "NZ Location Intelligence: feed coordinates, get composite picture. 7 active modules, 4 keyed slots",
+      "born": "Session 16",
+      "modules": ["geocode", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia"],
+      "keyedSlots": ["nzbn", "stats_nz", "niwa_tides", "linz_data"],
+      "categories": ["geo", "seismic", "weather", "local", "knowledge"]
+    }
+  }
+}
