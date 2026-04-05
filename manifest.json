@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "defaultKit": "core",
-  "updated": "2026-04-04T10:00:00Z",
+  "updated": "2026-04-04T04:30:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.1.0",
@@ -51,7 +51,8 @@
       "headless": true,
       "modules": ["weather", "earthquakes", "air-quality", "astronomy", "tides"],
       "apis": ["open-meteo", "geonet", "niwa"],
-      "purpose": "Serve the family first"
+      "purpose": "Serve the family with daily useful intelligence"
     }
   }
 }
+
