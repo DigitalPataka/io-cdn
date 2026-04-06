@@ -40,7 +40,7 @@
       "headless": false,
       "requiresKey": false
     },
-    "nz-intel": {
+    "sweep": {
       "version": "1.1.0",
       "description": "Universal Intelligence Kit — location sweep + marketplace + knowledge graph. One kit, all public sources.",
       "born": "Session 16",
