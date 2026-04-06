@@ -5,8 +5,8 @@
   "updated": "2026-04-06T10:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
-    "version": "1.2.0",
-    "description": "Universal kit execution with kill switch + TTL enforcement. Pass ?kit=<name> to run any kit server-side.",
+    "version": "1.3.0",
+    "description": "Universal kit execution with kill switch + TTL enforcement + Gemini summary. Pass ?kit=<name> to run any kit server-side.",
     "born": "Session 16"
   },
   "kits": {
