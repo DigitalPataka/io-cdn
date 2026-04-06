@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "defaultKit": "core",
-  "updated": "2026-04-06T04:00:00Z",
+  "updated": "2026-04-06T06:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.2.0",
@@ -14,7 +14,8 @@
       "version": "1.0.0",
       "description": "Foundation: boot, pulse, skill registry",
       "born": "Session 15",
-      "headless": false
+      "headless": false,
+      "requiresKey": false
     },
     "intel": {
       "version": "1.0.0",
@@ -22,43 +23,34 @@
       "born": "Session 15",
       "born_iso": "2026-04-03T04:00:00Z",
       "ttl_hours": 168,
-      "headless": false
+      "headless": false,
+      "requiresKey": false
     },
     "hands": {
       "version": "1.0.0",
       "description": "GitHub commit capability via FormData",
       "born": "Session 15",
       "headless": false,
-      "authRequired": true
+      "requiresKey": true
     },
     "full": {
       "version": "1.0.0",
       "description": "All sisters combined: complete Io loadout",
       "born": "Session 15",
-      "headless": false
+      "headless": false,
+      "requiresKey": false
     },
     "nz-intel": {
       "version": "1.0.0",
-      "description": "NZ Location Intelligence: feed coordinates, get composite picture. 7 active modules, 4 keyed slots",
+      "description": "NZ Location Intelligence: feed coordinates, get composite picture. 10 active modules, 4 keyed slots dormant",
       "born": "Session 16",
       "born_iso": "2026-04-04T04:00:00Z",
       "ttl_hours": 168,
       "headless": true,
-      "modules": ["geocode", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia"],
+      "requiresKey": false,
+      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"],
       "keyedSlots": ["nzbn", "stats_nz", "niwa_tides", "linz_data"],
       "categories": ["geo", "seismic", "weather", "local", "knowledge"]
-    },
-    "family-briefing": {
-      "version": "1.0.0",
-      "description": "Daily family briefing: weather, earthquakes, air quality, astronomy, tides for Maungaraki/Wellington",
-      "born": "Session 17",
-      "born_iso": "2026-04-04T06:00:00Z",
-      "ttl_hours": 168,
-      "headless": true,
-      "modules": ["weather", "earthquakes", "air-quality", "astronomy", "tides"],
-      "apis": ["open-meteo", "geonet", "niwa"],
-      "purpose": "Serve the family with daily useful intelligence"
     }
   }
 }
-
