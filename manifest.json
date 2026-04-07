@@ -41,8 +41,8 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.4.0",
-      "description": "Universal Intelligence Kit — 20 modules, thingTriggers routing. Trade Me specialists: rental, property, cars, bikes, boats, jobs, flatmates + reference data.",
+      "version": "1.4.1",
+      "description": "Universal Intelligence Kit — 20 modules, thingTriggers routing, place-aware queries. Trade Me specialists use location for search.",
       "born": "Session 16",
       "updated": "Session 23",
       "born_iso": "2026-04-04T04:00:00Z",
