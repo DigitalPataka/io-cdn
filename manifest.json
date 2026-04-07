@@ -41,10 +41,10 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.1.0",
-      "description": "Universal Intelligence Kit — location sweep + marketplace + knowledge graph. One kit, all public sources.",
+      "version": "1.2.0",
+      "description": "Universal Intelligence Kit — contract-aware routing. Each module gets the right field.",
       "born": "Session 16",
-      "updated": "Session 19",
+      "updated": "Session 23",
       "born_iso": "2026-04-04T04:00:00Z",
       "ttl_hours": 168,
       "headless": true,
