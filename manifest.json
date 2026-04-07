@@ -41,8 +41,8 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.2.0",
-      "description": "Universal Intelligence Kit — contract-aware routing. Each module gets the right field.",
+      "version": "1.2.1",
+      "description": "Universal Intelligence Kit — contract-aware routing with Guess Who selective firing.",
       "born": "Session 16",
       "updated": "Session 23",
       "born_iso": "2026-04-04T04:00:00Z",
