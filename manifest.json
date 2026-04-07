@@ -41,10 +41,10 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.4.2",
-      "description": "Universal Intelligence Kit — 20 modules, thingTriggers routing, place-aware queries, expanded qualifier translations.",
+      "version": "1.4.3",
+      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries.",
       "born": "Session 16",
-      "updated": "Session 23",
+      "updated": "Session 24",
       "born_iso": "2026-04-04T04:00:00Z",
       "ttl_hours": 168,
       "headless": true,
