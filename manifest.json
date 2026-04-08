@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "defaultKit": "core",
-  "updated": "2026-04-06T10:00:00Z",
+  "updated": "2026-04-08T00:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -41,10 +41,10 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.4.3",
-      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries.",
+      "version": "1.5.0",
+      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring.",
       "born": "Session 16",
-      "updated": "Session 24",
+      "updated": "Session 27",
       "born_iso": "2026-04-04T04:00:00Z",
       "ttl_hours": 168,
       "headless": true,
