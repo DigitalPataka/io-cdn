@@ -41,10 +41,10 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.5.0",
-      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring.",
+      "version": "1.6.0",
+      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring, Trade Me raw passthrough (Session 35).",
       "born": "Session 16",
-      "updated": "Session 27",
+      "updated": "Session 35",
       "born_iso": "2026-04-04T04:00:00Z",
       "ttl_hours": 168,
       "headless": true,
