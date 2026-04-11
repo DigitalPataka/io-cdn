@@ -1,6 +1,6 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "defaultKit": "core",
   "updated": "2026-04-11T00:00:00Z",
   "runner": {
@@ -41,8 +41,8 @@
       "requiresKey": false
     },
     "sweep": {
-      "version": "1.7.0",
-      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring, Trade Me raw passthrough (Session 35), Trade Me size-constraint integrity gate (Session 35).",
+      "version": "1.8.0",
+      "description": "Universal Intelligence Kit — 20 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring, Trade Me raw passthrough (Session 35), Trade Me size-constraint integrity gate (Session 35), Trade Me preferences registry — 13 arbitrage filters incl. biggest-discount, on-sale, clearance, no-bids, reserve-not-met, buy-now-only, super-seller, pickup-available, afterpay (Session 35).",
       "born": "Session 16",
       "updated": "Session 35",
       "born_iso": "2026-04-04T04:00:00Z",
