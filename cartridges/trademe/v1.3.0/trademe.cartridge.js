@@ -1057,7 +1057,7 @@ var IoCartridge_Trademe = (function() {
           if (s === "top" || s === "first") rows = 5;
         }
         params += "&rows=" + rows;
-        return TM_BASE + "/Search/Property/RetirementVillage.json?" + params;
+        return TM_BASE + "/Search/Property/Retirement.json?" + params;
       },
       fetchHeaders: TM_HEADERS,
       parse: function(data) {
