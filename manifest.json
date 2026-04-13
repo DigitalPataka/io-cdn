@@ -1,6 +1,6 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "defaultKit": "core",
   "updated": "2026-04-11T00:00:00Z",
   "runner": {
@@ -52,6 +52,20 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar"],
       "keyedSlots": ["nzbn", "stats_nz", "niwa_tides", "linz_data"],
       "categories": ["geo", "seismic", "weather", "local", "knowledge", "marketplace", "property", "motors", "employment"]
+    }
+  },
+  "cartridges": {
+    "nz-intel": {
+      "version": "1.0.0",
+      "born": "Session 43",
+      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity",
+      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
+    },
+    "trademe": {
+      "version": "1.0.0",
+      "born": "Session 43",
+      "description": "Trade Me marketplace — general search, property, motors, jobs, flatmates, categories, localities, listing detail, similar listings",
+      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar"]
     }
   }
 }
