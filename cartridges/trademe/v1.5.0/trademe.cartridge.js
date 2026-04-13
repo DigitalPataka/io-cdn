@@ -11,7 +11,8 @@ var IoCartridge_Trademe = (function() {
   // v1.4.0: Full sort vocabulary — WatchersMost, BuyNow, Reviews,
   //         LargestDiscount, motors sorts across all 20 modules (Session 44)
   // v1.5.0: Price params — parsePrice utility, price_min/price_max
-  //         appended to all search modules (Session 45)
+  //         appended to all search modules. Auto-category pre-query
+  //         when price set without category (Session 45)
   // ══════════════════════════════════════════════════════════════
 
   var meta = {
@@ -1569,43 +1570,68 @@ var IoCartridge_Trademe = (function() {
     }
 
     // Route 4: Standard search (thing required for most modules)
-    var qualified = qualifyModules(opts);
-    var active = qualified.modules;
 
-    // If caller specified which modules to fire, intersect
-    if (opts.modules && Array.isArray(opts.modules)) {
-      var requested = opts.modules;
-      active = active.filter(function(n) { return requested.indexOf(n) !== -1; });
+    // ── Price pre-query (v1.5.0) ────────────────────────────────
+    // TM's General Search ignores price_min/price_max unless a
+    // category is also present. When the user provides a price but
+    // no category, do a lightweight rows=1 preflight to discover
+    // the top category, then inject it into opts so the real query
+    // gets filtered results. Only fires when needed (~300 ms).
+    var pricePre = Promise.resolve();
+    if (opts.price && !opts.category && opts.thing) {
+      pricePre = fetchJson(
+        TM_BASE + "/Search/General.json?search_string=" + encodeURIComponent(opts.thing) + "&rows=1",
+        5000,
+        TM_HEADERS
+      ).then(function(data) {
+        if (data && data.FoundCategories && data.FoundCategories.length > 0) {
+          opts.category = String(data.FoundCategories[0].Category);
+          console.log("[trademe] Price pre-query: auto-category " + opts.category);
+        }
+      }).catch(function(e) {
+        console.log("[trademe] Price pre-query failed: " + e.message);
+      });
     }
 
-    console.log("[trademe] Qualified: " + active.length + "/" + Object.keys(modules).length + (qualified.hasSpecialist ? " (specialist matched)" : ""));
+    return pricePre.then(function() {
+      var qualified = qualifyModules(opts);
+      var active = qualified.modules;
 
-    var tasks = active.map(function(name) {
-      var mod = modules[name];
-      var queryValue = null;
-      if (mod.primaryField && opts[mod.primaryField]) {
-        queryValue = opts[mod.primaryField];
-      } else if (opts.place) {
-        queryValue = opts.place;
+      // If caller specified which modules to fire, intersect
+      if (opts.modules && Array.isArray(opts.modules)) {
+        var requested = opts.modules;
+        active = active.filter(function(n) { return requested.indexOf(n) !== -1; });
       }
-      if (!queryValue && !mod.queryByName) {
-        return Promise.resolve({ module: name, name: mod.name, category: mod.category, status: "no_query", data: null });
-      }
-      var url = mod.queryByName(queryValue || "", opts);
-      return runModule(name, url, mod, opts);
-    });
 
-    return Promise.all(tasks).then(function(results) {
-      return buildResult(results, {
-        place: opts.place || null,
-        lat: opts.lat || null,
-        lng: opts.lng || null,
-        thing: opts.thing || null,
-        qualifier: opts.qualifier || null,
-        scope: opts.scope || null,
-        preference: opts.preference || null,
-        raw: opts.raw || null
-      }, start);
+      console.log("[trademe] Qualified: " + active.length + "/" + Object.keys(modules).length + (qualified.hasSpecialist ? " (specialist matched)" : ""));
+
+      var tasks = active.map(function(name) {
+        var mod = modules[name];
+        var queryValue = null;
+        if (mod.primaryField && opts[mod.primaryField]) {
+          queryValue = opts[mod.primaryField];
+        } else if (opts.place) {
+          queryValue = opts.place;
+        }
+        if (!queryValue && !mod.queryByName) {
+          return Promise.resolve({ module: name, name: mod.name, category: mod.category, status: "no_query", data: null });
+        }
+        var url = mod.queryByName(queryValue || "", opts);
+        return runModule(name, url, mod, opts);
+      });
+
+      return Promise.all(tasks).then(function(results) {
+        return buildResult(results, {
+          place: opts.place || null,
+          lat: opts.lat || null,
+          lng: opts.lng || null,
+          thing: opts.thing || null,
+          qualifier: opts.qualifier || null,
+          scope: opts.scope || null,
+          preference: opts.preference || null,
+          raw: opts.raw || null
+        }, start);
+      });
     });
   }
 

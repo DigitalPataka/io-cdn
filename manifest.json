@@ -64,7 +64,7 @@
     "trademe": {
       "version": "1.5.0",
       "born": "Session 43",
-      "description": "Trade Me marketplace — full search catalog with price_min/price_max structured params, expanded sort vocabulary across all 20 modules",
+      "description": "Trade Me marketplace — price_min/price_max with auto-category pre-query, expanded sort vocabulary across all 20 modules",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
