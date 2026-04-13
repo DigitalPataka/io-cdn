@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "defaultKit": "core",
-  "updated": "2026-04-11T00:00:00Z",
+  "updated": "2026-04-13T00:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.4.0",
+      "version": "1.5.0",
       "born": "Session 43",
-      "description": "Trade Me marketplace — full search catalog with expanded sort vocabulary (WatchersMost, BuyNow, Reviews, LargestDiscount, motors sorts) across all 20 modules",
+      "description": "Trade Me marketplace — full search catalog with price_min/price_max structured params, expanded sort vocabulary across all 20 modules",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
