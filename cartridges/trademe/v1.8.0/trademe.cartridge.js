@@ -22,7 +22,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.8.0",  // Session 51: rows=500 default + ExpiryDesc default sort (General). Io owns the slice.
+    version: "1.8.0",  // Session 51: rows=500 default + ExpiryDesc default sort (General) + tmDate() wrap on all StartDate/EndDate emits so client-side Closing/Newest sorts parse correctly. Io owns the slice.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
@@ -457,8 +457,8 @@ var IoCartridge_Trademe = (function() {
               categoryPath: item.CategoryPath || null,
               region: item.Region,
               suburb: item.Suburb,
-              startDate: item.StartDate || null,
-              closingDate: item.EndDate,
+              startDate: item.StartDate ? tmDate(item.StartDate) : null,
+              closingDate: item.EndDate ? tmDate(item.EndDate) : null,
               listingLength: item.ListingLength || null,
               asAt: item.AsAt || null,
               photoUrl: item.PictureHref || null,
@@ -1513,7 +1513,7 @@ var IoCartridge_Trademe = (function() {
               isBuyNowOnly: item.IsBuyNowOnly === true,
               region: item.Region || null,
               suburb: item.Suburb || null,
-              closingDate: item.EndDate || null,
+              closingDate: item.EndDate ? tmDate(item.EndDate) : null,
               photoUrl: item.PictureHref || null
             };
           })
