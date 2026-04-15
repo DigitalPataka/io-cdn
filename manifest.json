@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.7.0",
+      "version": "1.8.0",
       "born": "Session 43",
-      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category",
+      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General — Io owns the slice, no more TM commercial-relevance defaults.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
