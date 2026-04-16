@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "defaultKit": "core",
-  "updated": "2026-04-16T00:00:00Z",
+  "updated": "2026-04-16T12:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.9.0",
+      "version": "1.10.0",
       "born": "Session 43",
-      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General. v1.9.0 (Session 51 Solution D): sections metadata per module — cartridge authoritative on which lane (rent/sale/jobs/reference) each module serves, feeding the resolver's section-aware dispatch gate.",
+      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General. v1.9.0 (Session 51 Solution D): sections metadata per module — cartridge authoritative on which lane (rent/sale/jobs/reference) each module serves, feeding the resolver's section-aware dispatch gate. v1.10.0 (Session 52 Phase 2+): resolver-authoritative dispatch — when opts.modules is a non-empty array the cartridge honours it verbatim and skips qualifyModules, fixing the lane=rent + thing=house → trademe-rental routing silently dropped by the old intersect-with-qualified logic.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
