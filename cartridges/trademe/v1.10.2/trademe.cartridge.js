@@ -220,13 +220,41 @@ var IoCartridge_Trademe = (function() {
     "southland": 11, "invercargill": 11, "gore": 11, "te anau": 11
   };
 
+  // Motors user_region codes — completely different numbering to Localities API.
+  // Extracted from TM's Angular SPA searchAreas config (Session 57).
+  // Key splits vs Localities: Manawatu/Whanganui are separate (8 vs 9),
+  // Wairarapa (11) split from Wellington (12), Timaru-Oamaru (17) split from Canterbury (16).
+  var PLACE_TO_USER_REGION = {
+    "northland": 1, "whangarei": 1, "far north": 1, "kaipara": 1,
+    "auckland": 2, "north shore": 2, "waitakere": 2, "manukau": 2, "papakura": 2, "franklin": 2, "rodney": 2,
+    "waikato": 3, "hamilton": 3, "taupo": 3, "thames": 3, "matamata": 3, "te awamutu": 3, "cambridge": 3, "morrinsville": 3, "huntly": 3, "ngaruawahia": 3, "tokoroa": 3,
+    "bay of plenty": 4, "tauranga": 4, "rotorua": 4, "whakatane": 4, "mount maunganui": 4, "te puke": 4,
+    "gisborne": 5,
+    "hawkes bay": 6, "hawke's bay": 6, "napier": 6, "hastings": 6,
+    "taranaki": 7, "new plymouth": 7,
+    "whanganui": 8, "wanganui": 8,
+    "manawatu": 9, "palmerston north": 9, "levin": 9, "feilding": 9,
+    "wairarapa": 11, "masterton": 11,
+    "wellington": 12, "lower hutt": 12, "upper hutt": 12, "porirua": 12, "kapiti": 12, "paraparaumu": 12, "hutt valley": 12,
+    "nelson": 13, "tasman": 13, "richmond": 13, "motueka": 13,
+    "marlborough": 14, "blenheim": 14, "picton": 14,
+    "west coast": 15, "greymouth": 15, "hokitika": 15,
+    "canterbury": 16, "christchurch": 16, "ashburton": 16, "rangiora": 16, "kaiapoi": 16, "rolleston": 16, "selwyn": 16,
+    "timaru": 17, "oamaru": 17,
+    "otago": 18, "dunedin": 18, "queenstown": 18, "wanaka": 18, "alexandra": 18, "cromwell": 18,
+    "southland": 19, "invercargill": 19, "gore": 19, "te anau": 19
+  };
+
   // Resolve place to region code. Returns {region, searchTerm} where:
   //   - region is the TM region code (number) or null if unrecognised
   //   - searchTerm is the leftover text for search_string (null if place was fully consumed)
-  function resolvePlace(opts) {
+  // useMotors=true selects the user_region table (Motors endpoints).
+  // useMotors=false/undefined selects the Localities table (Property/Jobs/Flatmates).
+  function resolvePlace(opts, useMotors) {
     if (!opts || !opts.place) return { region: null, searchTerm: null };
     var place = opts.place.toLowerCase().trim();
-    var regionCode = PLACE_TO_REGION[place];
+    var table = useMotors ? PLACE_TO_USER_REGION : PLACE_TO_REGION;
+    var regionCode = table[place];
     if (regionCode !== undefined) {
       return { region: regionCode, searchTerm: null };
     }
@@ -687,7 +715,7 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["car", "cars", "vehicle", "vehicles", "auto", "sedan", "suv", "ute", "hatchback", "wagon", "van", "truck", "4wd", "4x4"],
       queryByName: function(query, opts) {
-        var resolved = resolvePlace(opts);
+        var resolved = resolvePlace(opts, true);
         var params = resolved.region !== null
           ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
@@ -758,7 +786,7 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["motorbike", "motorbikes", "motorcycle", "motorcycles", "bike", "harley", "honda", "yamaha", "kawasaki", "suzuki", "ducati"],
       queryByName: function(query, opts) {
-        var resolved = resolvePlace(opts);
+        var resolved = resolvePlace(opts, true);
         var params = resolved.region !== null
           ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
@@ -825,7 +853,7 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["boat", "boats", "yacht", "yachts", "dinghy", "kayak", "jet ski", "jetski", "marine"],
       queryByName: function(query, opts) {
-        var resolved = resolvePlace(opts);
+        var resolved = resolvePlace(opts, true);
         var params = resolved.region !== null
           ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
