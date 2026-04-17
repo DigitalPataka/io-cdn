@@ -41,8 +41,9 @@ var IoCartridge_Trademe = (function() {
   //           Property/Jobs/Flatmates: region= (listing location)
   //         This mirrors TM's own website behaviour and fixes parity gap:
   //         text-searching "auckland" returned ~37K extra nationwide
-  //         results. Unrecognised places fall back to search_string
-  //         (safe degradation). Session 57 parity fix.
+  //         results. General Search also wired: place→user_region
+  //         (same family as Motors). Unrecognised places fall back to
+  //         search_string (safe degradation). Session 57 parity fix.
   // ══════════════════════════════════════════════════════════════
 
   var meta = {
@@ -499,12 +500,18 @@ var IoCartridge_Trademe = (function() {
       },
       queryByName: function(query, opts) {
         var searchTerm = (opts && opts.raw) ? opts.raw : query;
+        // General Search uses user_region= (same numbering as Motors).
+        // Resolve place → user_region code; unrecognised places fold into search_string.
+        var resolved = resolvePlace(opts, true);
+        if (resolved.searchTerm) {
+          searchTerm = searchTerm + " " + resolved.searchTerm;
+        }
         var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) {
+          params = params + "&user_region=" + resolved.region;
+        }
         if (opts && opts.category) {
           params = params + "&category=" + encodeURIComponent(opts.category);
-        }
-        if (opts && opts.region) {
-          params = params + "&region=" + encodeURIComponent(opts.region);
         }
         if (opts && opts.qualifier) {
           var sortOrder = this.qualifierTranslations[opts.qualifier.toLowerCase()];
