@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.10.0",
+      "version": "1.10.1",
       "born": "Session 43",
-      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General. v1.9.0 (Session 51 Solution D): sections metadata per module — cartridge authoritative on which lane (rent/sale/jobs/reference) each module serves, feeding the resolver's section-aware dispatch gate. v1.10.0 (Session 52 Phase 2+): resolver-authoritative dispatch — when opts.modules is a non-empty array the cartridge honours it verbatim and skips qualifyModules, fixing the lane=rent + thing=house → trademe-rental routing silently dropped by the old intersect-with-qualified logic.",
+      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General. v1.9.0 (Session 51 Solution D): sections metadata per module. v1.10.0 (Session 52): resolver-authoritative dispatch. v1.10.1 (Session 56): attribute retry defense — if TM API returns 400 with attribute params, retry without them. Attributes are optional enrichments; bad values narrow results, not kill the search.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
