@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.10.1",
+      "version": "1.10.2",
       "born": "Session 43",
-      "description": "Trade Me marketplace — attribute params (transmission, body_style, fuel_type, property_type) from resolver translation tables + price with auto-category. v1.8.0 (Session 51): rows=500 default + ExpiryDesc default sort on General. v1.9.0 (Session 51 Solution D): sections metadata per module. v1.10.0 (Session 52): resolver-authoritative dispatch. v1.10.1 (Session 56): attribute retry defense — if TM API returns 400 with attribute params, retry without them. Attributes are optional enrichments; bad values narrow results, not kill the search.",
+      "description": "Trade Me marketplace — attribute params + price with auto-category. v1.9.0: sections metadata. v1.10.0: resolver-authoritative dispatch. v1.10.1: attribute retry defense. v1.10.2 (Session 57): region-based location filtering — all specialist modules use TM region= param instead of search_string=placename, matching TM website parity. PLACE_TO_REGION lookup from Localities API.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
