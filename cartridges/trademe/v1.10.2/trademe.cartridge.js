@@ -33,14 +33,16 @@ var IoCartridge_Trademe = (function() {
   //         enrichments from the resolver's translation tables. A bad
   //         attribute value (e.g. body_style=RVSUV instead of SUV)
   //         should narrow results, not kill the search. Session 56.
-  // v1.10.2: Region-based location filtering. All specialist modules
-  //         now use TM region= param instead of search_string=placename.
+  // v1.10.2: Region-based location filtering. Specialist modules now
+  //         use TM region params instead of search_string=placename.
   //         PLACE_TO_REGION lookup maps NZ place names to official TM
-  //         Localities API codes. This mirrors TM's own website behaviour
-  //         and fixes parity gap: text-searching "auckland" returned ~2K
-  //         extra results from listings mentioning Auckland in description
-  //         but located elsewhere. Unrecognised places fall back to
-  //         search_string (safe degradation). Session 57 parity fix.
+  //         Localities API codes. Two param families:
+  //           Motors (cars/bikes/boats): user_region= (seller location)
+  //           Property/Jobs/Flatmates: region= (listing location)
+  //         This mirrors TM's own website behaviour and fixes parity gap:
+  //         text-searching "auckland" returned ~37K extra nationwide
+  //         results. Unrecognised places fall back to search_string
+  //         (safe degradation). Session 57 parity fix.
   // ══════════════════════════════════════════════════════════════
 
   var meta = {
@@ -687,7 +689,7 @@ var IoCartridge_Trademe = (function() {
       queryByName: function(query, opts) {
         var resolved = resolvePlace(opts);
         var params = resolved.region !== null
-          ? "region=" + resolved.region
+          ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "budget": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "recently listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "lowest mileage": "Odometer", "lowest odometer": "Odometer", "highest km": "HighOdometer", "most km": "HighOdometer", "newest car": "MotorsLatestVehicle", "newest vehicle": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "latest model": "MotorsLatestVehicle", "oldest car": "MotorsOldestVehicle", "oldest vehicle": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "high bid count": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
@@ -758,7 +760,7 @@ var IoCartridge_Trademe = (function() {
       queryByName: function(query, opts) {
         var resolved = resolvePlace(opts);
         var params = resolved.region !== null
-          ? "region=" + resolved.region
+          ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "newest bike": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "oldest bike": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
@@ -825,7 +827,7 @@ var IoCartridge_Trademe = (function() {
       queryByName: function(query, opts) {
         var resolved = resolvePlace(opts);
         var params = resolved.region !== null
-          ? "region=" + resolved.region
+          ? "user_region=" + resolved.region
           : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
