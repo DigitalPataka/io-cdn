@@ -1,6 +1,6 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.22.0",
+  "version": "1.23.0",
   "defaultKit": "core",
   "updated": "2026-04-16T12:00:00Z",
   "runner": {
@@ -62,9 +62,9 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.10.6",
+      "version": "1.10.7",
       "born": "Session 43",
-      "description": "Trade Me marketplace — v1.10.6 (Session 62): appendAttributeParams dedup — skip params already in URL. Duplicate region= from resolver place-fold + cartridge resolvePlace broke TM Rental/Property APIs (0 results).",
+      "description": "Trade Me marketplace — v1.10.7 (Session 62): brand names removed from bikes thingTriggers — cross-category brands caused false routing via word-boundary match (honda civic → bikes). v1.10.6: appendAttributeParams dedup.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
