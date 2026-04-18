@@ -523,14 +523,14 @@ var IoCartridge_Trademe = (function() {
             params = params + "&sort_order=" + sortOrder;
           }
         }
-        // Session 60 — Pattern C fix: default sort = BestMatch (same as
-        // TM's website). Session 51 used ExpiryDesc to avoid promoted
-        // listings, but that put accessories (cases, cables, stickers)
-        // above actual products for simple noun queries like "laptop".
-        // TM's BestMatch relevance is the better trade-off — it mirrors
-        // what a user would see on trademe.co.nz for the same query.
+        // Session 60 — Default sort kept as ExpiryDesc. BestMatch was
+        // tried but TM's public API rewards keyword density, not product
+        // relevance (accessories with "laptop" repeated dominate). The
+        // real Pattern C fix is category injection from tmIntel — the
+        // kit-runner passes opts.category from tmIntel breadcrumbs,
+        // scoping results to the correct product category.
         if (params.indexOf("sort_order=") === -1) {
-          params = params + "&sort_order=BestMatch";
+          params = params + "&sort_order=ExpiryDesc";
         }
         var rows = 500;
         if (opts && opts.scope) {
