@@ -509,11 +509,11 @@ var IoCartridge_Trademe = (function() {
         "about to end": "ExpiryAsc",
         "most time left": "ExpiryDesc",
         "longest running": "ExpiryDesc",
-        // ── Listing date ──
-        "newest": "ListingDateDesc",
-        "just listed": "ListingDateDesc",
-        "latest": "ListingDateDesc",
-        "recently listed": "ListingDateDesc",
+        // ── Listing date (TM website uses ExpiryDesc for "Latest listings") ──
+        "newest": "ExpiryDesc",
+        "just listed": "ExpiryDesc",
+        "latest": "ExpiryDesc",
+        "recently listed": "ExpiryDesc",
         // ── Seller reviews ──
         "best reviewed": "ReviewsDesc",
         "highest rated": "ReviewsDesc",
@@ -529,10 +529,10 @@ var IoCartridge_Trademe = (function() {
         "biggest saving": "LargestDiscount",
         "biggest price drop": "LargestDiscount",
         "most reduced": "LargestDiscount",
-        // ── Relevance ──
-        "best match": "BestMatch",
-        "most relevant": "BestMatch",
-        "relevance": "BestMatch",
+        // ── Relevance (TM website uses "Default" for best match) ──
+        "best match": "Default",
+        "most relevant": "Default",
+        "relevance": "Default",
         // ── Alphabetical ──
         "alphabetical": "TitleAsc",
         "a to z": "TitleAsc",
@@ -653,7 +653,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Rent", "lowest rent": "Rent", "lowest price": "Rent", "affordable": "Rent", "budget": "Rent", "most expensive": "RentDesc", "highest rent": "RentDesc", "priciest": "RentDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
+        // Session 60 — sort constants verified from TM website dropdown (Rental)
+        var sorts = {"cheapest": "PriceAsc", "lowest rent": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "budget": "PriceAsc", "most expensive": "PriceDesc", "highest rent": "PriceDesc", "priciest": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -709,7 +710,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "affordable": "Price", "budget": "Price", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature", "next open home": "EarliestOpenHome", "soonest open home": "EarliestOpenHome"};
+        // Session 60 — sort constants verified from TM website dropdown (Property family)
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "budget": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "featured": "Default", "premium": "Default", "next open home": "EarliestOpenHome", "soonest open home": "EarliestOpenHome", "earliest open home": "EarliestOpenHome"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -769,7 +771,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&user_region=" + resolved.region;
-        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "budget": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "recently listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "lowest mileage": "Odometer", "lowest odometer": "Odometer", "highest km": "HighOdometer", "most km": "HighOdometer", "newest car": "MotorsLatestVehicle", "newest vehicle": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "latest model": "MotorsLatestVehicle", "oldest car": "MotorsOldestVehicle", "oldest vehicle": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "high bid count": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
+        // Session 60 — sort constants verified from TM website dropdown
+        var sorts = {"cheapest": "MotorsPriceAsc", "lowest price": "MotorsPriceAsc", "affordable": "MotorsPriceAsc", "budget": "MotorsPriceAsc", "most expensive": "MotorsPriceDesc", "highest price": "MotorsPriceDesc", "priciest": "MotorsPriceDesc", "cheapest buy now": "MotorsBuyNowAsc", "lowest buy now": "MotorsBuyNowAsc", "most expensive buy now": "MotorsBuyNowDesc", "highest buy now": "MotorsBuyNowDesc", "newest": "MotorsLatestListings", "latest": "MotorsLatestListings", "just listed": "MotorsLatestListings", "recently listed": "MotorsLatestListings", "lowest km": "MotorsLowestKilometres", "least km": "MotorsLowestKilometres", "lowest mileage": "MotorsLowestKilometres", "lowest odometer": "MotorsLowestKilometres", "highest km": "MotorsHighestKilometres", "most km": "MotorsHighestKilometres", "newest car": "MotorsNewestVehicle", "newest vehicle": "MotorsNewestVehicle", "newest model": "MotorsNewestVehicle", "latest model": "MotorsNewestVehicle", "oldest car": "MotorsOldestVehicle", "oldest vehicle": "MotorsOldestVehicle", "featured": "MotorsFeatureFirst", "closing soon": "MotorsExpiryAsc", "ending soon": "MotorsExpiryAsc"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         params += "&rows=20";
@@ -840,7 +843,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&user_region=" + resolved.region;
-        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "newest bike": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "oldest bike": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
+        // Session 60 — sort constants verified from TM website dropdown (Motors family)
+        var sorts = {"cheapest": "MotorsPriceAsc", "lowest price": "MotorsPriceAsc", "most expensive": "MotorsPriceDesc", "highest price": "MotorsPriceDesc", "cheapest buy now": "MotorsBuyNowAsc", "most expensive buy now": "MotorsBuyNowDesc", "newest": "MotorsLatestListings", "latest": "MotorsLatestListings", "just listed": "MotorsLatestListings", "lowest km": "MotorsLowestKilometres", "least km": "MotorsLowestKilometres", "newest bike": "MotorsNewestVehicle", "newest model": "MotorsNewestVehicle", "oldest bike": "MotorsOldestVehicle", "featured": "MotorsFeatureFirst", "closing soon": "MotorsExpiryAsc", "ending soon": "MotorsExpiryAsc"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         params += "&rows=20";
@@ -907,7 +911,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&user_region=" + resolved.region;
-        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
+        // Session 60 — sort constants verified from TM website dropdown (Motors family)
+        var sorts = {"cheapest": "MotorsPriceAsc", "lowest price": "MotorsPriceAsc", "most expensive": "MotorsPriceDesc", "highest price": "MotorsPriceDesc", "cheapest buy now": "MotorsBuyNowAsc", "most expensive buy now": "MotorsBuyNowDesc", "newest": "MotorsLatestListings", "latest": "MotorsLatestListings", "just listed": "MotorsLatestListings", "featured": "MotorsFeatureFirst", "closing soon": "MotorsExpiryAsc", "ending soon": "MotorsExpiryAsc"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         params += "&rows=20";
@@ -972,7 +977,9 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"highest pay": "PayDesc", "highest paying": "PayDesc", "best paid": "PayDesc", "top paying": "PayDesc", "most pay": "PayDesc", "highest salary": "PayDesc", "lowest pay": "PayAsc", "lowest salary": "PayAsc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc", "best match": "BestMatch", "most relevant": "BestMatch", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
+        // Session 60 — sort constants verified from TM website dropdown:
+        // HighestSalary, LowestSalary, JobsLatestListingDesc, BestMatch, Default
+        var sorts = {"highest pay": "HighestSalary", "highest paying": "HighestSalary", "best paid": "HighestSalary", "top paying": "HighestSalary", "most pay": "HighestSalary", "highest salary": "HighestSalary", "lowest pay": "LowestSalary", "lowest salary": "LowestSalary", "newest": "JobsLatestListingDesc", "latest": "JobsLatestListingDesc", "just listed": "JobsLatestListingDesc", "recently listed": "JobsLatestListingDesc", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc", "best match": "BestMatch", "most relevant": "BestMatch", "featured": "Default", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         params += "&rows=20";
@@ -1145,7 +1152,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
+        // Session 60 — sort constants verified from TM website dropdown
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "featured": "Default", "premium": "Default", "next open home": "EarliestOpenHome", "soonest open home": "EarliestOpenHome", "earliest open home": "EarliestOpenHome"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1200,7 +1208,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Rent", "lowest rent": "Rent", "lowest price": "Rent", "affordable": "Rent", "most expensive": "RentDesc", "highest rent": "RentDesc", "priciest": "RentDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
+        // Session 60 — sort constants verified from TM website dropdown (Rental)
+        var sorts = {"cheapest": "PriceAsc", "lowest rent": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "most expensive": "PriceDesc", "highest rent": "PriceDesc", "priciest": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1256,7 +1265,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "smallest": "LandArea", "least land": "LandArea", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
+        // Session 60 — sort constants verified from TM website dropdown (Property family)
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "smallest": "LandArea", "least land": "LandArea", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1313,7 +1323,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
+        // Session 60 — sort constants verified from TM website dropdown (Property family)
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1368,7 +1379,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "soonest": "OpenHomeDate", "next": "OpenHomeDate", "earliest": "EarliestOpenHome", "next open home": "EarliestOpenHome", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
+        // Session 60 — sort constants verified from TM website dropdown
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "soonest": "EarliestOpenHome", "next": "EarliestOpenHome", "earliest": "EarliestOpenHome", "next open home": "EarliestOpenHome", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1425,7 +1437,8 @@ var IoCartridge_Trademe = (function() {
         if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
         var params = "search_string=" + encodeURIComponent(searchTerm);
         if (resolved.region !== null) params += "&region=" + resolved.region;
-        var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
+        // Session 60 — sort constants verified from TM website dropdown (Property family)
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ExpiryDesc", "latest": "ExpiryDesc", "just listed": "ExpiryDesc", "recently listed": "ExpiryDesc", "featured": "Default"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
@@ -1476,7 +1489,8 @@ var IoCartridge_Trademe = (function() {
       queryByName: function(query, opts) {
         var searchTerm = (opts && opts.raw) ? opts.raw : query;
         var params = "search_string=" + encodeURIComponent(searchTerm);
-        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDateDesc", "just listed": "ListingDateDesc", "latest": "ListingDateDesc", "recently listed": "ListingDateDesc", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc", "most bids": "BidsMost", "highest bids": "BidsMost", "high bid count": "BidsMost", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "biggest discount": "LargestDiscount", "best deal": "LargestDiscount", "best reviewed": "ReviewsDesc", "highest rated": "ReviewsDesc"};
+        // Session 60 — sort constants verified from TM website dropdown (General Search family)
+        var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ExpiryDesc", "just listed": "ExpiryDesc", "latest": "ExpiryDesc", "recently listed": "ExpiryDesc", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc", "most bids": "BidsMost", "highest bids": "BidsMost", "high bid count": "BidsMost", "best match": "Default", "most relevant": "Default", "biggest discount": "LargestDiscount", "best deal": "LargestDiscount"};
         var s = resolveSortOrder(opts, sorts);
         if (s) params += "&sort_order=" + s;
         var rows = 500;
