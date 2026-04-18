@@ -63,7 +63,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.10.5",  // Session 60 — resolveSortOrder: qualifier + preference both translate to API sort_order.
+    version: "1.10.6",  // Session 62 — appendAttributeParams dedup: skip params already in URL (duplicate region= broke TM Rental API).
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
