@@ -608,10 +608,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["flat", "flats", "rental", "rent", "rentals", "apartment", "apartments", "room", "rooms", "boarding", "unit", "units", "lease", "to rent", "for rent"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Rent", "lowest rent": "Rent", "lowest price": "Rent", "affordable": "Rent", "budget": "Rent", "most expensive": "RentDesc", "highest rent": "RentDesc", "priciest": "RentDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -664,10 +666,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["house", "houses", "property", "properties", "section", "sections", "land", "lifestyle", "home", "homes", "buy house", "for sale"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "affordable": "Price", "budget": "Price", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature", "next open home": "EarliestOpenHome", "soonest open home": "EarliestOpenHome"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -722,10 +726,14 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["car", "cars", "vehicle", "vehicles", "auto", "sedan", "suv", "ute", "hatchback", "wagon", "van", "truck", "4wd", "4x4"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A: always include search_string so the
+        // API filters by the user's actual search term (e.g. "toyota corolla"),
+        // not just the section. Region is added alongside, not instead of.
         var resolved = resolvePlace(opts, true);
-        var params = resolved.region !== null
-          ? "user_region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&user_region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "affordable": "PriceAsc", "budget": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "priciest": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "recently listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "lowest mileage": "Odometer", "lowest odometer": "Odometer", "highest km": "HighOdometer", "most km": "HighOdometer", "newest car": "MotorsLatestVehicle", "newest vehicle": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "latest model": "MotorsLatestVehicle", "oldest car": "MotorsOldestVehicle", "oldest vehicle": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "high bid count": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -793,10 +801,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["motorbike", "motorbikes", "motorcycle", "motorcycles", "bike", "harley", "honda", "yamaha", "kawasaki", "suzuki", "ducati"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts, true);
-        var params = resolved.region !== null
-          ? "user_region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&user_region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "lowest km": "Odometer", "least km": "Odometer", "newest bike": "MotorsLatestVehicle", "newest model": "MotorsLatestVehicle", "oldest bike": "MotorsOldestVehicle", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -860,10 +870,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["boat", "boats", "yacht", "yachts", "dinghy", "kayak", "jet ski", "jetski", "marine"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts, true);
-        var params = resolved.region !== null
-          ? "user_region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&user_region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "PriceAsc", "lowest price": "PriceAsc", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "Latest", "latest": "Latest", "just listed": "Latest", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "most bids": "BidsMost", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -925,10 +937,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["job", "jobs", "work", "employment", "career", "careers", "hiring", "vacancy", "vacancies", "position", "positions"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"highest pay": "PayDesc", "highest paying": "PayDesc", "best paid": "PayDesc", "top paying": "PayDesc", "most pay": "PayDesc", "highest salary": "PayDesc", "lowest pay": "PayAsc", "lowest salary": "PayAsc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "closing soon": "ExpiryAsc", "ending soon": "ExpiryAsc", "best match": "BestMatch", "most relevant": "BestMatch", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -973,10 +987,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["flatmate", "flatmates", "roommate", "roommates", "shared", "share house", "boarding"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         params += "&rows=20";
         params = appendPriceParams(params, opts);
         params = appendAttributeParams(params, opts, opts._moduleId || "");
@@ -1096,10 +1112,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["commercial", "office", "offices", "retail", "industrial", "warehouse", "factory", "shop", "business premises", "commercial property", "commercial sale"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -1151,10 +1169,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["lease", "leasing", "commercial lease", "office lease", "retail lease", "industrial lease", "warehouse lease", "office space", "retail space"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Rent", "lowest rent": "Rent", "lowest price": "Rent", "affordable": "Rent", "most expensive": "RentDesc", "highest rent": "RentDesc", "priciest": "RentDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -1207,10 +1227,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["lifestyle", "lifestyle block", "lifestyle blocks", "smallholding", "hobby farm", "small farm", "tramping", "tramping land", "acre", "acres", "hectare", "hectares"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "smallest": "LandArea", "least land": "LandArea", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -1264,10 +1286,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["rural", "farm", "farms", "farming", "dairy", "dairy farm", "horticulture", "viticulture", "vineyard", "orchard", "pastoral", "arable", "forestry", "grazing"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "biggest": "LandAreaDesc", "largest": "LandAreaDesc", "most land": "LandAreaDesc", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost", "featured": "PropertyFeature", "premium": "PropertyFeature"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -1319,10 +1343,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["open home", "open homes", "open house", "inspection", "inspections", "viewing", "viewings"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "soonest": "OpenHomeDate", "next": "OpenHomeDate", "earliest": "EarliestOpenHome", "next open home": "EarliestOpenHome", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
           var s = sorts[opts.qualifier.toLowerCase()];
@@ -1376,10 +1402,12 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["thing"],
       thingTriggers: ["retirement", "retirement village", "retirement villages", "over 55", "over 65", "lifestyle village", "rest home", "retirement unit"],
       queryByName: function(query, opts) {
+        // Session 60 fix — Pattern A
         var resolved = resolvePlace(opts);
-        var params = resolved.region !== null
-          ? "region=" + resolved.region
-          : "search_string=" + encodeURIComponent(resolved.searchTerm || query);
+        var searchTerm = query;
+        if (resolved.searchTerm) searchTerm = searchTerm + " " + resolved.searchTerm;
+        var params = "search_string=" + encodeURIComponent(searchTerm);
+        if (resolved.region !== null) params += "&region=" + resolved.region;
         if (opts && opts.qualifier) {
           var sorts = {"cheapest": "Price", "lowest price": "Price", "most expensive": "PriceDesc", "highest price": "PriceDesc", "newest": "ListingDate", "latest": "ListingDate", "just listed": "ListingDate", "recently listed": "ListingDate", "most watched": "WatchersMost", "most watchers": "WatchersMost", "trending": "WatchersMost", "most popular": "WatchersMost"};
           var s = sorts[opts.qualifier.toLowerCase()];
