@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.25.0",
+  "version": "1.25.1",
   "defaultKit": "core",
-  "updated": "2026-04-23T12:00:00Z",
+  "updated": "2026-04-23T13:15:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -56,10 +56,10 @@
   },
   "cartridges": {
     "nz-intel": {
-      "version": "1.1.1",
+      "version": "1.1.2",
       "born": "Session 43",
       "updated": "Session 77",
-      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.1.0 (S76): realestate-sale module added. v1.1.1 (S77): realestate.co.nz API schema realignment — filter[listingSubType]→filter[category], filter[listingCategoryCode](names)→filter[propertyType](numeric IDs 1=House, 2=Apartment, 4=Townhouse, 5=Unit, 6=Home&Income, 7=Lifestyle, 9=Section), page[size]→page[limit], sort removed (API 400s), boolean prefs camelCase (isMortgageeSale/isNewConstruction/isCoastalWaterfront). Verified live against api.realestate.co.nz.",
+      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.1.0 (S76): realestate-sale module added. v1.1.1 (S77): realestate.co.nz API schema realignment — filter[listingSubType]→filter[category], filter[listingCategoryCode](names)→filter[propertyType](numeric IDs 1=House, 2=Apartment, 4=Townhouse, 5=Unit, 6=Home&Income, 7=Lifestyle, 9=Section), page[size]→page[limit], sort removed (API 400s), boolean prefs camelCase (isMortgageeSale/isNewConstruction/isCoastalWaterfront). v1.1.2 (S77): removed page[number]=1 — API 400s with '\"number\" is not allowed'. Auckland verified live: 16,262 listings returned.",
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale"]
     },
     "trademe": {
