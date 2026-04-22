@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "defaultKit": "core",
-  "updated": "2026-04-16T12:00:00Z",
+  "updated": "2026-04-22T12:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -56,10 +56,11 @@
   },
   "cartridges": {
     "nz-intel": {
-      "version": "1.0.0",
+      "version": "1.1.0",
       "born": "Session 43",
-      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity",
-      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
+      "updated": "Session 76",
+      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.1.0 (Session 76): realestate-sale module added — residential sales from realestate.co.nz JSON:API backend, keyword-only dispatch (geocode short-circuit), stealth headers with UA rotation + source-matched Referer, authoritative region-ID translation table. Contract dormant (enabled:false) until Designer activation.",
+      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale"]
     },
     "trademe": {
       "version": "1.10.7",
