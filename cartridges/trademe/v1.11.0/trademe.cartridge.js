@@ -128,6 +128,33 @@ var IoCartridge_Trademe = (function() {
     });
   }
 
+  // v1.11.0 — fetchText for HTML-scrape modules. Mirrors fetchJson
+  // but returns res.text() so modules like trademe-listing-geo can
+  // regex-parse raw HTML. Modules opt into this by declaring
+  // parseAs: 'text' in their slot definition.
+  function fetchText(url, timeout, customHeaders) {
+    var ms = timeout || 10000;
+    var headers = customHeaders || { "Accept": "text/html,*/*" };
+    return new Promise(function(resolve, reject) {
+      var timer = setTimeout(function() {
+        reject(new Error("Timeout after " + ms + "ms"));
+      }, ms);
+      fetch(url, {
+        headers: headers,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        redirect: "follow"
+      }).then(function(res) {
+        clearTimeout(timer);
+        if (res.ok) return res.text();
+        reject(new Error("HTTP " + res.status));
+      }).then(resolve).catch(function(err) {
+        clearTimeout(timer);
+        reject(err);
+      });
+    });
+  }
+
   var TM_BASE = "https://api.trademe.co.nz/v1";
   var TM_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -1715,6 +1742,7 @@ var IoCartridge_Trademe = (function() {
       qualifiesWhen: ["listing_id"],
       primaryField: "listing_id",
       timeoutMs: 10000,
+      parseAs: "text",
       queryByName: function(listingId) {
         // Short canonical URL. TM's 302-redirects it to the full slug
         // (/a/property/residential/sale/{region}/{district}/{suburb}/listing/{id}).
@@ -1852,7 +1880,11 @@ var IoCartridge_Trademe = (function() {
   }
 
   function runModule(name, url, mod, opts) {
-    return fetchJson(url, null, mod.fetchHeaders || null).then(function(data) {
+    // v1.11.0 — modules with parseAs:'text' get HTML-scrape fetch
+    // (returns res.text() instead of res.json()). Everything else
+    // uses the JSON path. Added for trademe-listing-geo.
+    var fetcher = (mod.parseAs === "text") ? fetchText : fetchJson;
+    return fetcher(url, mod.timeoutMs || null, mod.fetchHeaders || null).then(function(data) {
       var parsed = mod.parse(data);
       if (parsed && mod.integrityFilter) {
         parsed = mod.integrityFilter(parsed, opts);
@@ -2052,6 +2084,12 @@ var IoCartridge_Trademe = (function() {
     var s = start || Date.now();
     var detailMod = modules["trademe-listing-detail"];
     var similarMod = modules["trademe-similar"];
+    // v1.11.0 — explicit geo scrape alongside the JSON detail fetch.
+    // TM's /v1/Listings/{id}.json doesn't carry GeographicLocation, but
+    // the public HTML page embeds a schema.org JSON-LD block with it.
+    // Firing in parallel with the detail+similar pair keeps this one
+    // network round-trip per listing.
+    var geoMod = modules["trademe-listing-geo"];
     var tasks = [];
 
     if (detailMod) {
@@ -2061,6 +2099,10 @@ var IoCartridge_Trademe = (function() {
     if (similarMod) {
       var similarUrl = similarMod.queryByName(listingId, opts);
       tasks.push(runModule("trademe-similar", similarUrl, similarMod, opts));
+    }
+    if (geoMod) {
+      var geoUrl = geoMod.queryByName(listingId, opts);
+      tasks.push(runModule("trademe-listing-geo", geoUrl, geoMod, opts));
     }
 
     return Promise.all(tasks).then(function(results) {
