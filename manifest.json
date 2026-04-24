@@ -63,7 +63,7 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale", "realestate-listing-detail"]
     },
     "trademe": {
-      "version": "1.11.1",
+      "version": "1.11.2",
       "born": "Session 43",
       "updated": "Session 79",
       "description": "Trade Me marketplace — v1.11.1 (Session 79): CDN cache-bust bump of v1.11.0 (jsDelivr edge held stale bytes after two sub-pushes on the same path). v1.11.0 (Session 79): NEW MODULE trademe-listing-geo. HTML-scrapes lat/lng from the public TM listing page's schema.org JSON-LD GeoCoordinates block. Unblocks homes.co.nz enrichment for TM property listings — TM's JSON API doesn't expose coordinates but TM's SEO-embedded JSON-LD does. investigateListing() explicit dispatch for the new module. fetchText helper + parseAs:'text' flag for HTML-scrape modules. Gated qualifiesWhen:['listing_id']; normal search never dispatches it. Mirrors realestate-listing-detail pattern. v1.10.7 (Session 62): brand names removed from bikes thingTriggers — cross-category brands caused false routing via word-boundary match (honda civic → bikes). v1.10.6: appendAttributeParams dedup.",
