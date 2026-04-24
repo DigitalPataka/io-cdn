@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.26.1",
+  "version": "1.27.0",
   "defaultKit": "core",
-  "updated": "2026-04-24T02:00:00Z",
+  "updated": "2026-04-24T23:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -63,10 +63,11 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale", "realestate-listing-detail"]
     },
     "trademe": {
-      "version": "1.10.7",
+      "version": "1.11.0",
       "born": "Session 43",
-      "description": "Trade Me marketplace — v1.10.7 (Session 62): brand names removed from bikes thingTriggers — cross-category brands caused false routing via word-boundary match (honda civic → bikes). v1.10.6: appendAttributeParams dedup.",
-      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
+      "updated": "Session 79",
+      "description": "Trade Me marketplace — v1.11.0 (Session 79): NEW MODULE trademe-listing-geo. HTML-scrapes lat/lng from the public TM listing page's schema.org JSON-LD GeoCoordinates block. Unblocks homes.co.nz enrichment for TM property listings — TM's JSON API doesn't expose coordinates but TM's SEO-embedded JSON-LD does. Gated qualifiesWhen:['listing_id']; normal search never dispatches it. Mirrors realestate-listing-detail pattern. v1.10.7 (Session 62): brand names removed from bikes thingTriggers — cross-category brands caused false routing via word-boundary match (honda civic → bikes). v1.10.6: appendAttributeParams dedup.",
+      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-geo", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
 }
