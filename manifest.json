@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.27.2",
+  "version": "1.27.3",
   "defaultKit": "core",
-  "updated": "2026-04-25T00:15:00Z",
+  "updated": "2026-04-25T00:40:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -63,11 +63,11 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale", "realestate-listing-detail"]
     },
     "trademe": {
-      "version": "1.11.4",
+      "version": "1.11.5",
       "born": "Session 43",
       "updated": "Session 79",
-      "description": "Trade Me marketplace — v1.11.4 (Session 79): PIVOT trademe-listing-geo from HTML-scrape to JSON API recursive walk. v1.11.3 debug proved TM serves a pure Angular SPA shell to our UA (zero JSON-LD, zero TransferState, zero NZ-range coords). Module now hits /v1/Listings/{id}.json and recursively walks every key whose name matches /lat|lon|geo|coord|location/i — if TM's JSON API exposes geo anywhere at all, this diagnostic finds it. Returns _debug with topKeys, geoHits, nzLatMatchCount. v1.11.1-3: CDN cache bust + HTML-scrape debug iterations. v1.11.0 (Session 79): NEW MODULE trademe-listing-geo. Mirrors realestate-listing-detail pattern. investigateListing() explicit dispatch for the new module. fetchText helper + parseAs:'text' flag for HTML-scrape modules. Gated qualifiesWhen:['listing_id']; normal search never dispatches it. v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
-      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-geo", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
+      "description": "Trade Me marketplace — v1.11.5 (Session 79): DELETED trademe-listing-geo module. v1.11.4's JSON API probe proved TM exposes GeographicLocation.Latitude / GeographicLocation.Longitude at the top level of /v1/Listings/{id}.json. The HTML-scrape detour (v1.11.0-4) was built on a false premise. Geo extraction now lives in trademe-listing-detail's parse() — one network call per listing, not two. homes.co.nz enrichment now fires on any TM property listing via d.modules['trademe-listing-detail'].data.latitude/.longitude. v1.11.0-4 (Session 79): HTML-scrape iterations + JSON probe — all dead code removed. Kung fu banked: walk the JSON API recursively before drifting to HTML-scrape. v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
+      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
 }
