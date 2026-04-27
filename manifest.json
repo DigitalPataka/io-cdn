@@ -56,10 +56,10 @@
   },
   "cartridges": {
     "nz-intel": {
-      "version": "1.2.1",
+      "version": "1.3.0",
       "born": "Session 43",
-      "updated": "Session 78",
-      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.1.0 (S76): realestate-sale module added. v1.1.1 (S77): realestate.co.nz API schema realignment — filter[listingSubType]→filter[category], filter[listingCategoryCode](names)→filter[propertyType](numeric IDs 1=House, 2=Apartment, 4=Townhouse, 5=Unit, 6=Home&Income, 7=Lifestyle, 9=Section), page[size]→page[limit], sort removed (API 400s), boolean prefs camelCase (isMortgageeSale/isNewConstruction/isCoastalWaterfront). v1.1.2 (S77): removed page[number]=1 — API 400s with '\"number\" is not allowed'. Auckland verified live: 16,262 listings returned. v1.1.3 (S77): image URL fix — API returns photos[0]['base-url'] not photos[0].urls.large; construct https://mediaserver.realestate.co.nz + base-url + .crop.800x600.jpg. v1.2.0 (S78): NEW MODULE — realestate-listing-detail. HTML-scrape path for totalViews + suburbMedianPrice + suburbYoYPercent (with direction) + listedDate/daysOnMarket — the 4 public signals the JSON:API doesn't expose. Auth-gated /account/v1/.../metrics is off-limits; Ember Fastboot bakes the values into public HTML. Gated qualifiesWhen:['listing_id']; route 0 in cartridge run() dispatches it. Adapter fires on detail-panel open. fetchText() helper + buildRealestateHtmlHeaders() + parseRealestateDetailHtml() added.",
+      "updated": "Session 82",
+      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity, realestate.co.nz residential sales + listing-detail. v1.3.0 (S82): realestate-sale queryByName now consumes opts.module_attributes['realestate-sale'] for {region,district,suburb} numeric IDs and emits filter[region][]=N, filter[district][]=N, filter[suburb][]=N. Closes nationwide-fanout for Real Estate NZ tab on suburb-level queries (Island Bay, Khandallah, etc.). Backward-compat: legacy REALESTATE_REGIONS lookup still fires when structured fold absent. Probe S82-R: realestate.co.nz JSON:API requires array-shape + numeric IDs (slug-based filters all rejected). v1.2.0 (S78): realestate-listing-detail HTML-scrape path. v1.1.0-3 (S76-77): realestate-sale module + JSON:API schema realignment.",
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale", "realestate-listing-detail"]
     },
     "trademe": {
