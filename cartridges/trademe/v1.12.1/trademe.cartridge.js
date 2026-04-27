@@ -109,7 +109,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.12.0",  // Session 82 (S82-AD) — companion SSR fetch on trademe general module surfaces filter facets (Region/District/Condition/Delivery/Shipping/Payment/Buy Now/Clearance) with live aggregated counts. See header.
+    version: "1.12.1",  // Session 82 (S82-AD) — diagnostic patch on parseFrendStateFacets. v1.12.0 deployed cleanly but TM serves stripped HTML to server-side fetches (no NGRX_STATE.search.entities). This bump returns _diag with htmlLen/topKeys/scriptCount/cloudflare-captcha hints so we can see what TM actually sent.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {

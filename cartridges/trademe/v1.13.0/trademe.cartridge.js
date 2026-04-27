@@ -2,7 +2,27 @@ var IoCartridge_Trademe = (function() {
   "use strict";
 
   // ══════════════════════════════════════════════════════════════
-  // TRADE ME MARKETPLACE CARTRIDGE v1.12.0
+  // TRADE ME MARKETPLACE CARTRIDGE v1.13.0
+  // v1.13.0 (Session 82, S82-AE): SESSION WARMING for marketplace SSR.
+  //   v1.12.1 diagnostics confirmed TM serves a stripped HTML shell
+  //   (~99KB, NGRX_STATE missing search.entities) when the request
+  //   carries no session cookies. Cookied browser fetches return the
+  //   full ~561KB SSR with item.parameters present. This release adds:
+  //     1) warmTmSession() — fetches www.trademe.co.nz with no cookies,
+  //        reads Set-Cookie response headers (TS01/_abck/__cf_bm/etc.),
+  //        and caches them in a module-level _tmSessionCookie string.
+  //        Persists across Cloud Function warm starts; re-warms on
+  //        30-minute TTL or after a stripped-shell response.
+  //     2) ensureTmSession() — returns cached cookie if fresh, otherwise
+  //        triggers a warm. Single source of truth for cookie freshness.
+  //     3) trademe.companionFetch — now awaits ensureTmSession() and
+  //        adds the Cookie header to TM_WEB_HEADERS at request time.
+  //        On stripped-shell response, clears the cookie cache so the
+  //        next call rewarms.
+  //   No /v1/Search/General API path change — auth-gated API still
+  //   uses TM_HEADERS (no cookies). Fully severable: if warming fails,
+  //   companionFetch returns {facets:null, err:...} and listings render
+  //   with the legacy 4-filter set.
   // v1.12.0 (Session 82, S82-AD): Filter facet enrichment for the
   //   trademe general module. Adds:
   //     1) parseFrendStateFacets(html) — extracts the 8 universal
@@ -109,7 +129,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.12.0",  // Session 82 (S82-AD) — companion SSR fetch on trademe general module surfaces filter facets (Region/District/Condition/Delivery/Shipping/Payment/Buy Now/Clearance) with live aggregated counts. See header.
+    version: "1.13.0",  // Session 82 (S82-AE) — SESSION WARMING. v1.12.1 diagnostics confirmed TM strips SSR for cookieless fetches. v1.13.0 adds warmTmSession() + ensureTmSession() + fetchTmSsr() — fetches www.trademe.co.nz once, caches Set-Cookie response headers in module-level state (persists across CF warm starts), replays them on subsequent SSR fetches. 30-min TTL. Self-healing: stripped-shell response clears cache so next call rewarms.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
@@ -215,6 +235,91 @@ var IoCartridge_Trademe = (function() {
     "Accept-Language": "en-NZ,en;q=0.9",
     "Cache-Control": "no-cache"
   };
+
+  // ── v1.13.0 (S82-AE): SESSION WARMING for marketplace SSR ─────
+  // TM only renders the full SSR state (with item.parameters) when the
+  // request carries session cookies. Cookieless server-side fetches
+  // get a stripped 99KB shell. We solve it by warming a session: one
+  // GET to www.trademe.co.nz with no cookies returns Set-Cookie
+  // response headers (TS01/_abck/__cf_bm/etc), we cache them in a
+  // module-level variable, and replay them on subsequent SSR fetches.
+  // Persists across Cloud Function warm starts. 30-min TTL.
+  var _tmSessionCookie = null;
+  var _tmSessionWarmedAt = 0;
+  var TM_SESSION_TTL_MS = 30 * 60 * 1000;
+
+  function _readSetCookieHeaders(res) {
+    var rawSetCookies = [];
+    try {
+      if (typeof res.headers.getSetCookie === "function") {
+        rawSetCookies = res.headers.getSetCookie() || [];
+      } else if (res.headers.raw && typeof res.headers.raw === "function") {
+        var raw = res.headers.raw();
+        rawSetCookies = raw["set-cookie"] || [];
+      } else {
+        // Fallback: single combined header (browser fetch). Best-effort split.
+        var combined = res.headers.get && res.headers.get("set-cookie");
+        if (combined) rawSetCookies = String(combined).split(/,(?=[^;]+=)/);
+      }
+    } catch (e) {}
+    var pairs = [];
+    for (var i = 0; i < rawSetCookies.length; i++) {
+      var first = String(rawSetCookies[i]).split(";")[0].trim();
+      if (first && first.indexOf("=") !== -1) pairs.push(first);
+    }
+    return pairs;
+  }
+
+  function warmTmSession() {
+    return new Promise(function(resolve) {
+      var timer = setTimeout(function() {
+        _tmSessionCookie = null;
+        _tmSessionWarmedAt = 0;
+        resolve(null);
+      }, 8000);
+      fetch("https://www.trademe.co.nz/", {
+        method: "GET",
+        headers: TM_WEB_HEADERS,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        redirect: "follow"
+      }).then(function(res) {
+        clearTimeout(timer);
+        var pairs = _readSetCookieHeaders(res);
+        _tmSessionCookie = pairs.length > 0 ? pairs.join("; ") : null;
+        _tmSessionWarmedAt = Date.now();
+        resolve(_tmSessionCookie);
+      }).catch(function() {
+        clearTimeout(timer);
+        _tmSessionCookie = null;
+        _tmSessionWarmedAt = 0;
+        resolve(null);
+      });
+    });
+  }
+
+  function ensureTmSession() {
+    var fresh = _tmSessionCookie && (Date.now() - _tmSessionWarmedAt) < TM_SESSION_TTL_MS;
+    if (fresh) return Promise.resolve(_tmSessionCookie);
+    return warmTmSession();
+  }
+
+  function _clearTmSession() {
+    _tmSessionCookie = null;
+    _tmSessionWarmedAt = 0;
+  }
+
+  // Cookied SSR fetch — wraps fetchText to inject the warmed Cookie
+  // header. On stripped-shell response (no NGRX search.entities), the
+  // caller should _clearTmSession() so the next call rewarms.
+  function fetchTmSsr(url, timeout) {
+    return ensureTmSession().then(function(cookie) {
+      var headers = {};
+      for (var k in TM_WEB_HEADERS) headers[k] = TM_WEB_HEADERS[k];
+      if (cookie) headers["Cookie"] = cookie;
+      return fetchText(url, timeout || 10000, headers);
+    });
+  }
 
   function parseFrendStateFacets(html) {
     if (!html || typeof html !== "string") return { facets: null, err: "no html", _diag: { htmlLen: 0 } };
@@ -744,7 +849,19 @@ var IoCartridge_Trademe = (function() {
         if (resolved && resolved.region != null) {
           url = url + "&user_region=" + resolved.region;
         }
-        return fetchText(url, 8000, TM_WEB_HEADERS).then(parseFrendStateFacets).catch(function(err) {
+        // v1.13.0: cookied SSR fetch — TM only renders item.parameters
+        // when the request carries session cookies. fetchTmSsr warms a
+        // session on the first call and caches the cookie for 30 min.
+        return fetchTmSsr(url, 8000).then(function(html) {
+          var parsed = parseFrendStateFacets(html);
+          // Self-heal: stripped-shell response means our cookie went
+          // stale or the warming failed silently. Clear the cache so
+          // the next call rewarms from scratch.
+          if (!parsed.facets && parsed.err && parsed.err.indexOf("NGRX") !== -1) {
+            _clearTmSession();
+          }
+          return parsed;
+        }).catch(function(err) {
           return { facets: null, err: err.message || "ssr fetch failed" };
         });
       },

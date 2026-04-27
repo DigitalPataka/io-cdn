@@ -63,10 +63,10 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.12.0",
+      "version": "1.13.0",
       "born": "Session 43",
       "updated": "Session 82",
-      "description": "Trade Me marketplace — v1.12.0 (Session 82, S82-AD): companion SSR fetch on the trademe general module extracts the 8 universal filter parameters (Region, District, Condition, Delivery location, Shipping, Payment, Buy Now, Clearance) with live aggregated counts from TM website's frend-state SSR blob. Fires in PARALLEL with the API call so listings still arrive at full speed. Non-fatal on miss — listings always render; facets simply absent. Source-blind mechanism: any future module can declare companionFetch and the runtime merges the result into parsed.data.facets. See kung-fu Move #26 (SSR Hydration State Extraction). v1.11.5 (Session 79): DELETED trademe-listing-geo module — geo extraction folded into trademe-listing-detail's parse(). v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
+      "description": "Trade Me marketplace — v1.13.0 (Session 82, S82-AE): SESSION WARMING for marketplace SSR. v1.12.1 diagnostics confirmed TM only renders the full SSR state (with item.parameters) when the request carries session cookies; cookieless server-side fetches get a stripped 99KB shell. v1.13.0 adds warmTmSession() + ensureTmSession() + fetchTmSsr() — one GET to www.trademe.co.nz collects Set-Cookie response headers (TS01/_abck/__cf_bm/etc), caches them in a module-level variable that persists across Cloud Function warm starts, and replays them on subsequent SSR fetches. 30-min TTL. Self-healing: a stripped-shell response clears the cache so the next call rewarms. companionFetch on the trademe general module now uses fetchTmSsr to extract the 8 universal filter parameters (Region, District, Condition, Delivery, Shipping, Payment, Buy Now, Clearance) with live aggregated counts. v1.11.5 (Session 79): DELETED trademe-listing-geo module. v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
