@@ -56,11 +56,11 @@
   },
   "cartridges": {
     "nz-intel": {
-      "version": "1.3.0",
+      "version": "1.4.0",
       "born": "Session 43",
       "updated": "Session 82",
-      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity, realestate.co.nz residential sales + listing-detail. v1.3.0 (S82): realestate-sale queryByName now consumes opts.module_attributes['realestate-sale'] for {region,district,suburb} numeric IDs and emits filter[region][]=N, filter[district][]=N, filter[suburb][]=N. Closes nationwide-fanout for Real Estate NZ tab on suburb-level queries (Island Bay, Khandallah, etc.). Backward-compat: legacy REALESTATE_REGIONS lookup still fires when structured fold absent. Probe S82-R: realestate.co.nz JSON:API requires array-shape + numeric IDs (slug-based filters all rejected). v1.2.0 (S78): realestate-listing-detail HTML-scrape path. v1.1.0-3 (S76-77): realestate-sale module + JSON:API schema realignment.",
-      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "realestate-sale", "realestate-listing-detail"]
+      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.4.0 (S82-X): SEVERED realestate.co.nz entirely. RE was redundant after TM's S82 enrichment stack (LINZ + homes + ArcGIS hazards) covered everything RE used to provide. RE has 100/call vs TM 500/call ceiling. Severability doctrine restored — TM translation table no longer carries RE fields. Git history (cartridge versions v1.0.0 - v1.3.0) retains for reversal.",
+      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
       "version": "1.11.5",
