@@ -63,10 +63,10 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.11.5",
+      "version": "1.12.0",
       "born": "Session 43",
-      "updated": "Session 79",
-      "description": "Trade Me marketplace — v1.11.5 (Session 79): DELETED trademe-listing-geo module. v1.11.4's JSON API probe proved TM exposes GeographicLocation.Latitude / GeographicLocation.Longitude at the top level of /v1/Listings/{id}.json. The HTML-scrape detour (v1.11.0-4) was built on a false premise. Geo extraction now lives in trademe-listing-detail's parse() — one network call per listing, not two. homes.co.nz enrichment now fires on any TM property listing via d.modules['trademe-listing-detail'].data.latitude/.longitude. v1.11.0-4 (Session 79): HTML-scrape iterations + JSON probe — all dead code removed. Kung fu banked: walk the JSON API recursively before drifting to HTML-scrape. v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
+      "updated": "Session 82",
+      "description": "Trade Me marketplace — v1.12.0 (Session 82, S82-AD): companion SSR fetch on the trademe general module extracts the 8 universal filter parameters (Region, District, Condition, Delivery location, Shipping, Payment, Buy Now, Clearance) with live aggregated counts from TM website's frend-state SSR blob. Fires in PARALLEL with the API call so listings still arrive at full speed. Non-fatal on miss — listings always render; facets simply absent. Source-blind mechanism: any future module can declare companionFetch and the runtime merges the result into parsed.data.facets. See kung-fu Move #26 (SSR Hydration State Extraction). v1.11.5 (Session 79): DELETED trademe-listing-geo module — geo extraction folded into trademe-listing-detail's parse(). v1.10.7 (Session 62): brand names removed from bikes thingTriggers.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
