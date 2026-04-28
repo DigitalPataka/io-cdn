@@ -63,10 +63,10 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.14.0",
+      "version": "1.14.1",
       "born": "Session 43",
       "updated": "Session 83",
-      "description": "Trade Me marketplace — v1.14.0 (Session 83, S83-F10): trademe-listing-detail now requests Questions array via ?return_questions=true and parses normalised questions[] alongside the existing questionCount. Powers Q heat stat, QW% ratio, Quiet heat (active) signal, AND a new Q&A list rendered below description in the listing detail panel. Single fetch, no extra round trip. Previous: v1.11.5 (Session 79) DELETED trademe-listing-geo module after JSON probe proved /v1/Listings/{id}.json exposes GeographicLocation at top level. v1.13.x SSR-cookie-warming experiments archived — Cloudflare bot management blocks server-side fetches regardless of cookies (see reference_tm_marketplace_facets_locked.md).",
+      "description": "Trade Me marketplace — v1.14.1 (Session 83, S83-F10 v2): trademe-listing-detail parses normalised questions[] from data.Questions which the bare /v1/Listings/{id}.json endpoint returns naturally. v1.14.0 added ?return_questions=true which was wrong — that param triggers an auth gate, while the bare endpoint includes Questions alongside ViewCount/BidderAndWatchers/Body. Powers Q heat stat, QW% ratio, Quiet heat (active) signal, AND a Q&A list rendered below the description in the listing detail panel. Previous: v1.11.5 (Session 79) DELETED trademe-listing-geo module after JSON probe proved /v1/Listings/{id}.json exposes GeographicLocation at top level. v1.13.x SSR-cookie-warming experiments archived — Cloudflare bot management blocks server-side fetches regardless of cookies (see reference_tm_marketplace_facets_locked.md).",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
