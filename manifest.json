@@ -63,10 +63,10 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.14.9",
+      "version": "1.14.10",
       "born": "Session 43",
       "updated": "Session 83",
-      "description": "Trade Me marketplace — v1.14.9 (Session 83, S83-F10e1): parser fix exposing free question-count gate. TM's `Questions` field is documented as an OBJECT (<Questions>) with TotalCount + List. v1.14.8 read it as an array and silently captured 0 for every listing. v1.14.9 reads `Questions.TotalCount` (preserved by TM even when List is stripped for unauth callers) plus surfaces `unansweredQuestionCount` and `supportsQuestionsAndAnswers` so the UI can lazy-fire Spider only when there's actually Q&A to fetch. v1.14.8 (S83-F10i) shipped Q&A via post-hydration DOM scrape on Spider.cloud — kept intact, only the count-gating signals are new.",
+      "description": "Trade Me marketplace — v1.14.10 (Session 83, S83-F10f): two fixes. (1) Bare TM unauth API DOES return Questions.List with shells (answer=null, masked nicknames like r********i, raw .NET dates). v1.14.9 stitched these onto detail.questions, fooling the lazy gate into thinking Spider had run — answers stopped rendering. v1.14.10 leaves detail.questions=[]; Spider is the authoritative source for usable bodies. Bare API only contributes questionCount/unansweredQuestionCount/supportsQuestionsAndAnswers. (2) Spider parser additionally extracts bid history from .tm-bid-history-modal__bid-container DOM (price/member/time per bid) — TM pre-renders the latest 10 bids into the same page Spider already fetches, so bid history is FREE alongside Q&A. trademe-listing-questions module now returns {questions, questionCount, bidHistory, bidHistoryShown, bidHistoryTotal}.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-questions", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
