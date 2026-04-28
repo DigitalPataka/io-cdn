@@ -63,10 +63,10 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.11.5",
+      "version": "1.14.0",
       "born": "Session 43",
-      "updated": "Session 82",
-      "description": "Trade Me marketplace — v1.13.1 (Session 82, S82-AE): WARM AGAINST FAVICON + ABORTCONTROLLER. v1.13.0 deployed but the kit-runner hung on sweep+thing queries. Two changes: (1) warmTmSession now hits https://www.trademe.co.nz/a/favicon.ico (a few KB, same-origin so Cloudflare/TM still mint session cookies) instead of the full home page (99-561KB, throttle-prone). Matches Shonty's prior-art pattern of using a small static asset as session primer. (2) AbortController wired into warmTmSession and fetchTmSsr so the timeout actually severs the underlying socket — v1.13.0 leaked dangling fetches that pinned the Cloud Function. v1.13.0: companionFetch + parseFrendStateFacets to extract the 8 universal filter parameters from the SSR state. v1.11.5 (Session 79): DELETED trademe-listing-geo module.",
+      "updated": "Session 83",
+      "description": "Trade Me marketplace — v1.14.0 (Session 83, S83-F10): trademe-listing-detail now requests Questions array via ?return_questions=true and parses normalised questions[] alongside the existing questionCount. Powers Q heat stat, QW% ratio, Quiet heat (active) signal, AND a new Q&A list rendered below description in the listing detail panel. Single fetch, no extra round trip. Previous: v1.11.5 (Session 79) DELETED trademe-listing-geo module after JSON probe proved /v1/Listings/{id}.json exposes GeographicLocation at top level. v1.13.x SSR-cookie-warming experiments archived — Cloudflare bot management blocks server-side fetches regardless of cookies (see reference_tm_marketplace_facets_locked.md).",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     }
   }
