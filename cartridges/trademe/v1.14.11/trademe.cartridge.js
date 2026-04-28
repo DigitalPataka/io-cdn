@@ -87,7 +87,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.14.11",  // S83-F10i/j: two fixes via the SAME mechanism — frend-state SSR JSON extraction. (1) Bid history scrape from DOM (v1.14.10) returned nothing because TM lazy-renders the modal on click — Spider's headless browser never clicks. (2) Shipping options from the bare REST API have method=null; the user-friendly labels ("North island 1-2 day", "South island 1-2 days", "Pick-up available from Porirua, Wellington") only live in the frend-state `<script id="frend-state" type="application/json">` SSR transfer state blob. v1.14.11 adds tryParseSsrFrendState() which JSON-parses the blob (Spider preserves the script tag intact) and recursively walks for both `bids.list[]` (bid history) and `shippingOptions[]` (labelled). Same Spider call → three datasets (Q&A + bids + shipping labels), still one credit.
+    version: "1.14.11",  // S83-F10i/j/k: three fixes. (i) Bid history scrape from DOM (v1.14.10) returned nothing because TM lazy-renders the modal on click — Spider's headless browser never clicks. New tryParseSsrFrendState() JSON-parses the `<script id="frend-state" type="application/json">` SSR transfer state blob (which Spider preserves intact) and recursively walks for `bids.list[]`. (j) Same SSR JSON also exposes `shippingOptions[]` with full user-facing labels — surfaced as a Spider-stitched fallback. (k) Bug fix: bare TM REST DOES expose `Method` on each ShippingOption (per dev docs, "NZ Courier" etc.) but parser was reading `s.ShippingMethod` (wrong name). Fixed to `s.Method` — most listings now get labelled shipping for free with no Spider needed; Spider stitch is the safety net for cases where Method is null.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
@@ -1660,10 +1660,16 @@ var IoCartridge_Trademe = (function() {
         if (Array.isArray(data.ShippingOptions)) {
           data.ShippingOptions.forEach(function(s) {
             if (!s) return;
+            // S83-F10k — field is `Method` per TM dev docs, not
+            // `ShippingMethod`. Parser was silently capturing null,
+            // pushing UI to "Option N" fallback. ShippingType is
+            // listed alongside; capture both for future use.
             shipping.push({
               type: s.Type || null,
+              shippingType: s.ShippingType || null,
               price: s.Price != null ? s.Price : null,
-              method: s.ShippingMethod || null
+              method: s.Method || null,
+              shippingId: s.ShippingId != null ? s.ShippingId : null
             });
           });
         }
