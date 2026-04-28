@@ -2116,7 +2116,29 @@ var IoCartridge_Trademe = (function() {
     probe.first200 = html.slice(0, 200).replace(/[\w\-+/=]{40,}/g, "<long>");
     var startTag = '<script id="frend-state" type="application/json">';
     var startIdx = html.indexOf(startTag);
-    if (startIdx < 0) { probe.stage = "frend-state-tag-missing"; return { probe: probe, questions: [], questionCount: 0 }; }
+    if (startIdx < 0) {
+      probe.stage = "frend-state-tag-missing";
+      // S83-F10h: extra diagnostics to find where the data actually lives.
+      // Spider's Chrome renders post-hydration — Angular consumes the SSR
+      // state and removes the script tag. Q&A then lives in the rendered
+      // DOM as element text, not in the JSON blob.
+      probe.hasNgrxKeyword = html.indexOf('NGRX_STATE') >= 0;
+      probe.hasMotherboardSentinel = html.indexOf('motherboard') >= 0;
+      probe.scriptTagsCount = (html.match(/<script[\s>]/gi) || []).length;
+      probe.scriptIdValues = (function(){
+        var ids = [];
+        var re = /<script[^>]*id=["']([^"']+)["']/gi;
+        var m;
+        while ((m = re.exec(html)) && ids.length < 10) ids.push(m[1]);
+        return ids;
+      })();
+      // If 'motherboard' is in the rendered HTML, locate it
+      if (probe.hasMotherboardSentinel) {
+        var mIdx = html.indexOf('motherboard');
+        probe.motherboardCtx = html.substr(Math.max(0, mIdx - 100), 300);
+      }
+      return { probe: probe, questions: [], questionCount: 0 };
+    }
     var bodyStart = startIdx + startTag.length;
     var endIdx = html.indexOf("</script>", bodyStart);
     if (endIdx < 0) { probe.stage = "script-close-missing"; return { probe: probe, questions: [], questionCount: 0 }; }
