@@ -63,7 +63,7 @@
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
-      "version": "1.14.7",
+      "version": "1.14.8",
       "born": "Session 43",
       "updated": "Session 83",
       "description": "Trade Me marketplace — v1.14.3 (Session 83, S83-F10c): Q&A SHIPS. Two-stage anon-JWT extraction. Stage 1: fetch /a/marketplace/listing/{id} cookieless from Cloud Function — TM serves an anonymous Bearer JWT in NGRX_STATE.auth.token + tradeMeClientId to ANY caller (the 99KB bot stub still contains them). Stage 2: GET api.trademe.co.nz/v1/listings/{id}/questions.json with Authorization: Bearer + x-trademe-uniqueclientid headers. Endpoint accepts the anon JWT, returns full Q&A (TotalCount, List with Comment/Answer/AskingMember). Verified live in Chrome with credentials:'omit'. v1.14.2 was the wrong path (HTML scrape needs cookies for full SSR; bot stub has only auth). Previous: v1.11.5 (Session 79) DELETED trademe-listing-geo module — same kung-fu pattern (anon JWT chain for Koru endpoints) is reusable for any future TM REST endpoint we want.",
