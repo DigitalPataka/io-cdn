@@ -29,7 +29,7 @@ var IoCartridge_FbMarketplace = (function () {
   //   machinery underneath.
   //
   // Severability:
-  //   - Master gate: /io/flags/fb_marketplace_enabled (CF-side, default
+  //   - Master gate: /config/flags/fb_marketplace_enabled (CF-side, default
   //     false). When false the CF returns 503 and this cartridge's
   //     parse() returns null (= status:'empty'). Search still runs;
   //     other modules continue as normal.
