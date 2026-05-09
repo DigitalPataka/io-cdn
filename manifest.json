@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.28.0",
+  "version": "1.28.1",
   "defaultKit": "core",
-  "updated": "2026-05-09T00:00:00Z",
+  "updated": "2026-05-09T08:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -42,7 +42,7 @@
     },
     "sweep": {
       "version": "1.12.0",
-      "description": "Universal Intelligence Kit — 22 modules, category drill-down, thingTriggers routing, place-aware queries, quakes time_range, poi v0.2 kind wiring, Trade Me raw passthrough (Session 35), Trade Me size-constraint integrity gate (Session 35), Trade Me preferences registry — 13 arbitrage filters incl. biggest-discount, on-sale, clearance, no-bids, reserve-not-met, buy-now-only, super-seller, pickup-available, afterpay (Session 35). v1.9.0 (Session 36): shared TM_PREFERENCES/tmApplyPreference/tmIntegrityFilter hoisted to kit level; trademe-cars/bikes/boats now surface arbitrage fields and apply preferences via the shared helper — one definition, four retail surfaces. v1.10.0 (Session 37): Listing Detail modules born — trademe-listing-detail (/v1/Listings/{id}.json) + trademe-similar (/v1/Listings/{id}/Similar.json) + investigateListing() entry point. Gated on qualifiesWhen:['listing_id']; normal search flows never dispatch them. Kit-runner accepts ?kit=sweep&listing_id=<id>. Severable from search. v1.12.0 (Session 52 Phase 2): trademe-rental structured-filter dispatch — queryByName now reads opts.module_attributes['trademe-rental'] populated by resolver (attribute table + place-fold patch) and emits canonical TM API params (region, district, property_type, bedrooms_max). Data-gated severability: absent module_attributes → byte-identical legacy search_string fallback. Closes the 'results mismatch TM' class of bug for rent queries.",
+      "description": "Universal Intelligence Kit. See git history for full session log.",
       "born": "Session 16",
       "updated": "Session 52",
       "born_iso": "2026-04-04T04:00:00Z",
@@ -59,21 +59,21 @@
       "version": "1.4.0",
       "born": "Session 43",
       "updated": "Session 82",
-      "description": "NZ location intelligence — geocode, quakes, volcanoes, weather, elevation, POI, Wikipedia, Wikidata, intensity. v1.4.0 (S82-X): SEVERED realestate.co.nz entirely. RE was redundant after TM's S82 enrichment stack (LINZ + homes + ArcGIS hazards) covered everything RE used to provide. RE has 100/call vs TM 500/call ceiling. Severability doctrine restored — TM translation table no longer carries RE fields. Git history (cartridge versions v1.0.0 - v1.3.0) retains for reversal.",
+      "description": "NZ location intelligence. v1.4.0 (S82-X): SEVERED realestate.co.nz entirely.",
       "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
     },
     "trademe": {
       "version": "1.14.11",
       "born": "Session 43",
       "updated": "Session 83",
-      "description": "Trade Me marketplace — v1.14.11 (Session 83, S83-F10i/j/k): frend-state SSR JSON extraction. Replaces v1.14.10's broken DOM-scrape for bid history (TM lazy-renders the modal on click — Spider's headless never clicks). New tryParseSsrFrendState() finds the `<script id=frend-state type=application/json>` block, JSON-parses, and recursively walks for both `bids.list[]` (bid history) AND `shippingOptions[]` with full user-facing labels (\"North island 1-2 day\", \"Pick-up available from Porirua, Wellington\" — REST API leaves these null). Same Spider call returns Q&A + bids + shipping labels — still one credit. v1.14.10 (S83-F10f): two fixes. (1) Bare TM unauth API DOES return Questions.List with shells (answer=null, masked nicknames like r********i, raw .NET dates). v1.14.9 stitched these onto detail.questions, fooling the lazy gate into thinking Spider had run — answers stopped rendering. v1.14.10 leaves detail.questions=[]; Spider is the authoritative source for usable bodies. Bare API only contributes questionCount/unansweredQuestionCount/supportsQuestionsAndAnswers. (2) Spider parser additionally extracts bid history from .tm-bid-history-modal__bid-container DOM (price/member/time per bid) — TM pre-renders the latest 10 bids into the same page Spider already fetches, so bid history is FREE alongside Q&A. trademe-listing-questions module now returns {questions, questionCount, bidHistory, bidHistoryShown, bidHistoryTotal}.",
+      "description": "Trade Me marketplace. v1.14.11 (S83): frend-state SSR JSON extraction. See cartridge file header for full session log.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-questions", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
     },
     "fb-marketplace": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "born": "Session 87",
       "updated": "Session 87",
-      "description": "FB Marketplace — buy-now-only, static asking-prices, NZ-domestic supply observatory. Cross-platform role: TM remains demand observatory (watchers/bids/auction urgency); FB plays supply-price observatory. Logged-out public web surface; cartridge stays dumb and fetches via /api/fb-marketplace-search CF (which owns rotating-token harvest, GraphQL POST, cursor replay, 3-city NZ fan-out, dedupe). v1.0.0 (Session 87): single-module cartridge `fb-marketplace`. Search is exact-phrase only — single-noun primaryField. Filters: price range, item condition, days_since_listed, delivery_method. Sort options: price_ascend/descend, creation_time_descend, distance_ascend, best_match.",
+      "description": "FB Marketplace. v1.0.1 fixes v1.0.0's buildResult shape mismatch. See cartridge file header for details.",
       "modules": ["fb-marketplace"]
     }
   }
