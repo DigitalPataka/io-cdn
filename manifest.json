@@ -1,8 +1,8 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.27.3",
+  "version": "1.28.0",
   "defaultKit": "core",
-  "updated": "2026-04-25T00:40:00Z",
+  "updated": "2026-05-09T00:00:00Z",
   "runner": {
     "endpoint": "https://io-matua-kore.web.app/api/kit-runner",
     "version": "1.3.0",
@@ -68,6 +68,13 @@
       "updated": "Session 83",
       "description": "Trade Me marketplace — v1.14.11 (Session 83, S83-F10i/j/k): frend-state SSR JSON extraction. Replaces v1.14.10's broken DOM-scrape for bid history (TM lazy-renders the modal on click — Spider's headless never clicks). New tryParseSsrFrendState() finds the `<script id=frend-state type=application/json>` block, JSON-parses, and recursively walks for both `bids.list[]` (bid history) AND `shippingOptions[]` with full user-facing labels (\"North island 1-2 day\", \"Pick-up available from Porirua, Wellington\" — REST API leaves these null). Same Spider call returns Q&A + bids + shipping labels — still one credit. v1.14.10 (S83-F10f): two fixes. (1) Bare TM unauth API DOES return Questions.List with shells (answer=null, masked nicknames like r********i, raw .NET dates). v1.14.9 stitched these onto detail.questions, fooling the lazy gate into thinking Spider had run — answers stopped rendering. v1.14.10 leaves detail.questions=[]; Spider is the authoritative source for usable bodies. Bare API only contributes questionCount/unansweredQuestionCount/supportsQuestionsAndAnswers. (2) Spider parser additionally extracts bid history from .tm-bid-history-modal__bid-container DOM (price/member/time per bid) — TM pre-renders the latest 10 bids into the same page Spider already fetches, so bid history is FREE alongside Q&A. trademe-listing-questions module now returns {questions, questionCount, bidHistory, bidHistoryShown, bidHistoryTotal}.",
       "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-questions", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
+    },
+    "fb-marketplace": {
+      "version": "1.0.0",
+      "born": "Session 87",
+      "updated": "Session 87",
+      "description": "FB Marketplace — buy-now-only, static asking-prices, NZ-domestic supply observatory. Cross-platform role: TM remains demand observatory (watchers/bids/auction urgency); FB plays supply-price observatory. Logged-out public web surface; cartridge stays dumb and fetches via /api/fb-marketplace-search CF (which owns rotating-token harvest, GraphQL POST, cursor replay, 3-city NZ fan-out, dedupe). v1.0.0 (Session 87): single-module cartridge `fb-marketplace`. Search is exact-phrase only — single-noun primaryField. Filters: price range, item condition, days_since_listed, delivery_method. Sort options: price_ascend/descend, creation_time_descend, distance_ascend, best_match.",
+      "modules": ["fb-marketplace"]
     }
   }
 }
