@@ -1,6 +1,6 @@
 {
   "soul": "Io Matua Kore",
-  "version": "1.28.1",
+  "version": "1.28.2",
   "defaultKit": "core",
   "updated": "2026-05-09T08:00:00Z",
   "runner": {
@@ -49,9 +49,47 @@
       "ttl_hours": 168,
       "headless": true,
       "requiresKey": false,
-      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity", "trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-similar"],
-      "keyedSlots": ["nzbn", "stats_nz", "niwa_tides", "linz_data"],
-      "categories": ["geo", "seismic", "weather", "local", "knowledge", "marketplace", "property", "motors", "employment"]
+      "modules": [
+        "geocode",
+        "search",
+        "quakes",
+        "volcanoes",
+        "weather",
+        "elevation",
+        "poi",
+        "wikipedia",
+        "wikidata",
+        "intensity",
+        "trademe",
+        "trademe-rental",
+        "trademe-property",
+        "trademe-cars",
+        "trademe-bikes",
+        "trademe-boats",
+        "trademe-jobs",
+        "trademe-flatmates",
+        "trademe-categories",
+        "trademe-localities",
+        "trademe-listing-detail",
+        "trademe-similar"
+      ],
+      "keyedSlots": [
+        "nzbn",
+        "stats_nz",
+        "niwa_tides",
+        "linz_data"
+      ],
+      "categories": [
+        "geo",
+        "seismic",
+        "weather",
+        "local",
+        "knowledge",
+        "marketplace",
+        "property",
+        "motors",
+        "employment"
+      ]
     }
   },
   "cartridges": {
@@ -60,21 +98,47 @@
       "born": "Session 43",
       "updated": "Session 82",
       "description": "NZ location intelligence. v1.4.0 (S82-X): SEVERED realestate.co.nz entirely.",
-      "modules": ["geocode", "search", "quakes", "volcanoes", "weather", "elevation", "poi", "wikipedia", "wikidata", "intensity"]
+      "modules": [
+        "geocode",
+        "search",
+        "quakes",
+        "volcanoes",
+        "weather",
+        "elevation",
+        "poi",
+        "wikipedia",
+        "wikidata",
+        "intensity"
+      ]
     },
     "trademe": {
       "version": "1.14.11",
       "born": "Session 43",
       "updated": "Session 83",
       "description": "Trade Me marketplace. v1.14.11 (S83): frend-state SSR JSON extraction. See cartridge file header for full session log.",
-      "modules": ["trademe", "trademe-rental", "trademe-property", "trademe-cars", "trademe-bikes", "trademe-boats", "trademe-jobs", "trademe-flatmates", "trademe-categories", "trademe-localities", "trademe-listing-detail", "trademe-listing-questions", "trademe-similar", "trademe-stats", "trademe-commercial-sale", "trademe-commercial-lease", "trademe-lifestyle", "trademe-rural", "trademe-open-homes", "trademe-retirement", "trademe-stores"]
-    },
-    "fb-marketplace": {
-      "version": "1.0.1",
-      "born": "Session 87",
-      "updated": "Session 87",
-      "description": "FB Marketplace. v1.0.1 fixes v1.0.0's buildResult shape mismatch. See cartridge file header for details.",
-      "modules": ["fb-marketplace"]
+      "modules": [
+        "trademe",
+        "trademe-rental",
+        "trademe-property",
+        "trademe-cars",
+        "trademe-bikes",
+        "trademe-boats",
+        "trademe-jobs",
+        "trademe-flatmates",
+        "trademe-categories",
+        "trademe-localities",
+        "trademe-listing-detail",
+        "trademe-listing-questions",
+        "trademe-similar",
+        "trademe-stats",
+        "trademe-commercial-sale",
+        "trademe-commercial-lease",
+        "trademe-lifestyle",
+        "trademe-rural",
+        "trademe-open-homes",
+        "trademe-retirement",
+        "trademe-stores"
+      ]
     }
   }
 }
