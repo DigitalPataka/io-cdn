@@ -112,10 +112,10 @@
       ]
     },
     "trademe": {
-      "version": "1.14.11",
+      "version": "1.14.12",
       "born": "Session 43",
-      "updated": "Session 83",
-      "description": "Trade Me marketplace. v1.14.11 (S83): frend-state SSR JSON extraction. See cartridge file header for full session log.",
+      "updated": "Session 90",
+      "description": "Trade Me marketplace. v1.14.12 (S90): rental & property-for-sale searches now fetch page 2 (max 1000 results) when TotalCount exceeds 500, instead of silently capping at 500. See cartridge file header for full session log.",
       "modules": [
         "trademe",
         "trademe-rental",
