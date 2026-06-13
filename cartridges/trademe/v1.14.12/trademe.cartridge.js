@@ -87,7 +87,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.14.12",  // S90 (2026-06-14): Rental & Property-for-sale searches were silently capped at 500 results (one page, no &page= param) regardless of TM's TotalCount — e.g. "auckland rental" showed 500 of 5,888. TM's documented rows max is 500/call (confirmed via developer.trademe.co.nz), but supports &page=2+. New expandPages() in runModule fetches page 2 (best-effort, swallows failures) when page 1 is full and TotalCount > 500, raising the ceiling to 1000 for trademe-rental and trademe-property. Rollback: point manifest.json back to v1.14.11.
+    version: "1.14.12",  // S90 (2026-06-14): Rental & Property-for-sale searches were silently capped at 500 results (one page, no &page= param) regardless of TM's TotalCount — e.g. "auckland rental" showed 500 of 5,888. TM's documented rows max is 500/call (confirmed via developer.trademe.co.nz), but supports &page=2+. New expandPages() in runModule fetches enough extra pages (best-effort, swallows failures) to cover TotalCount when page 1 is full, capped at mod.maxPages (30 for trademe-rental/trademe-property = up to 15,000 results — "auckland rental"'s 5,888 needs 12 pages, fully covered in one search). Rollback: point manifest.json back to v1.14.11.
     // v1.14.11 — S83-F10i/j/k: three fixes. (i) Bid history scrape from DOM (v1.14.10) returned nothing because TM lazy-renders the modal on click — Spider's headless browser never clicks. New tryParseSsrFrendState() JSON-parses the `<script id="frend-state" type="application/json">` SSR transfer state blob (which Spider preserves intact) and recursively walks for `bids.list[]`. (j) Same SSR JSON also exposes `shippingOptions[]` with full user-facing labels — surfaced as a Spider-stitched fallback. (k) Bug fix: bare TM REST DOES expose `Method` on each ShippingOption (per dev docs, "NZ Courier" etc.) but parser was reading `s.ShippingMethod` (wrong name). Fixed to `s.Method` — most listings now get labelled shipping for free with no Spider needed; Spider stitch is the safety net for cases where Method is null.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
@@ -727,11 +727,12 @@ var IoCartridge_Trademe = (function() {
         params = appendAttributeParams(params, opts, opts._moduleId || "");
         return TM_BASE + "/Search/Property/Rental.json?" + params;
       },
-      // v1.14.12 — page=2 fetched (max 1000 results) when page 1 is
-      // full and TotalCount says there's more. Was hard-capped at 500
-      // (one page) regardless of TotalCount.
+      // v1.14.12 — pages fetched until TotalCount is covered (or
+      // maxPages reached) when page 1 is full. Was hard-capped at 500
+      // (one page) regardless of TotalCount. maxPages: 30 = up to
+      // 15,000 results; "auckland rental" (5,888) needs 12 pages.
       paginate: true,
-      maxPages: 2,
+      maxPages: 30,
       fetchHeaders: TM_HEADERS,
       parse: function(data) {
         if (!data || !data.List) return null;
@@ -789,11 +790,12 @@ var IoCartridge_Trademe = (function() {
         params = appendAttributeParams(params, opts, opts._moduleId || "");
         return TM_BASE + "/Search/Property/Residential.json?" + params;
       },
-      // v1.14.12 — page=2 fetched (max 1000 results) when page 1 is
-      // full and TotalCount says there's more. Was hard-capped at 500
-      // (one page) regardless of TotalCount.
+      // v1.14.12 — pages fetched until TotalCount is covered (or
+      // maxPages reached) when page 1 is full. Was hard-capped at 500
+      // (one page) regardless of TotalCount. maxPages: 30 = up to
+      // 15,000 results; "auckland rental" (5,888) needs 12 pages.
       paginate: true,
-      maxPages: 2,
+      maxPages: 30,
       fetchHeaders: TM_HEADERS,
       parse: function(data) {
         if (!data || !data.List) return null;
@@ -1940,9 +1942,12 @@ var IoCartridge_Trademe = (function() {
   // developer.trademe.co.nz docs) but supports `&page=N` (1-indexed)
   // to walk further into TotalCount. When the first page comes back
   // full (List.length >= 500) and TotalCount says there's more, fetch
-  // pages 2..mod.maxPages in parallel and concatenate .List before
-  // parse(). One extra TM call per extra page — kept small (maxPages
-  // default 2 = max 1000 results) to respect the ~1000/hr TM budget.
+  // however many extra pages are needed to cover TotalCount — capped
+  // at mod.maxPages — in parallel and concatenate .List before parse().
+  // pagesNeeded = ceil(TotalCount / 500), so a search with TotalCount
+  // just over 500 only costs one extra call, not maxPages-1. mod.maxPages
+  // (30 for trademe-rental/trademe-property = up to 15,000 results) is
+  // a ceiling for pathological cases, not a default extra cost.
   // Page failures are swallowed (best-effort extension; page 1 stands
   // on its own either way).
   function expandPages(url, mod, data) {
@@ -1952,8 +1957,9 @@ var IoCartridge_Trademe = (function() {
     if (typeof data.TotalCount !== "number" || data.TotalCount <= data.List.length) return Promise.resolve(data);
 
     var maxPages = mod.maxPages || 2;
+    var pagesNeeded = Math.min(maxPages, Math.ceil(data.TotalCount / 500));
     var pagePromises = [];
-    for (var p = 2; p <= maxPages; p++) {
+    for (var p = 2; p <= pagesNeeded; p++) {
       pagePromises.push(
         fetchJson(url + "&page=" + p, mod.timeoutMs || null, mod.fetchHeaders || null).catch(function() {
           return null; // best-effort — missing page just means fewer extra results
