@@ -87,7 +87,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.14.4",  // S83-F10d: MULTI-VARIANT PROBE. Logged-out incognito Chrome navigation DOES get the 430KB SSR with Q&A (Shonty proved). Cookieless server fetch gets the 99KB stub. Difference might be Sec-Fetch-Dest: document (navigation) vs empty (fetch) — Cloudflare may classify based on those headers. Or it could be cookies set by /a/ home that need to ride along. This probe runs THREE variants in parallel and returns htmlLen + has-Q&A flag for each: (1) bare fetch (current), (2) navigation-shaped headers (Sec-Fetch-Dest:document, Sec-Fetch-Mode:navigate, Sec-Fetch-Site:none, no Referer), (3) two-stage cookie warming via /a/ home then re-fetch listing with collected Set-Cookie. Whichever returns 430KB with Q&A is the production path.
+    version: "1.14.4",  // S83-F10d: MULTI-VARIANT PROBE. Logged-out incognito Chrome navigation DOES get the 430KB SSR with Q&A (the designer proved). Cookieless server fetch gets the 99KB stub. Difference might be Sec-Fetch-Dest: document (navigation) vs empty (fetch) — Cloudflare may classify based on those headers. Or it could be cookies set by /a/ home that need to ride along. This probe runs THREE variants in parallel and returns htmlLen + has-Q&A flag for each: (1) bare fetch (current), (2) navigation-shaped headers (Sec-Fetch-Dest:document, Sec-Fetch-Mode:navigate, Sec-Fetch-Site:none, no Referer), (3) two-stage cookie warming via /a/ home then re-fetch listing with collected Set-Cookie. Whichever returns 430KB with Q&A is the production path.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
@@ -2100,7 +2100,7 @@ var IoCartridge_Trademe = (function() {
 
   // S83-F10d — MULTI-VARIANT PROBE.
   // Logged-out incognito Chrome navigation gets full 430KB SSR with Q&A
-  // (Shonty proved with screenshot). Cookieless server fetch gets 99KB
+  // (the designer proved with screenshot). Cookieless server fetch gets 99KB
   // bot stub. Find which fetch shape closes the gap.
   //
   // Tries three variants in PARALLEL:

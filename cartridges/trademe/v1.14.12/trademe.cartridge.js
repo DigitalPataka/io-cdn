@@ -2181,7 +2181,7 @@ var IoCartridge_Trademe = (function() {
 
   // S83-F10d — MULTI-VARIANT PROBE.
   // Logged-out incognito Chrome navigation gets full 430KB SSR with Q&A
-  // (Shonty proved with screenshot). Cookieless server fetch gets 99KB
+  // (the designer proved with screenshot). Cookieless server fetch gets 99KB
   // bot stub. Find which fetch shape closes the gap.
   //
   // Tries three variants in PARALLEL:

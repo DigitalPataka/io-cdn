@@ -11,7 +11,7 @@ var IoCartridge_Trademe = (function() {
   //        + TM's session cookies are still minted by the edge — but
   //        the response is a few KB instead of 99-561KB. Faster, lighter,
   //        and matches the prior-art pattern (logo/favicon as session
-  //        primer) Shonty used successfully on a previous site.
+  //        primer) the designer used successfully on a previous site.
   //     2) AbortController wired into warmTmSession AND fetchTmSsr so
   //        the timeout actually severs the underlying socket. The
   //        v1.13.0 setTimeout pattern resolved the outer Promise but

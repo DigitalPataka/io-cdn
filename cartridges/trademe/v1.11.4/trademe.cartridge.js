@@ -1738,7 +1738,7 @@ var IoCartridge_Trademe = (function() {
     // GeoCoordinates for SEO — stable, canonical format that won't
     // drift with cosmetic redesigns.
     //
-    // Why this module exists (v1.11.0, Shonty-visible root cause):
+    // Why this module exists (v1.11.0, the designer-visible root cause):
     //   Io's homes.co.nz enrichment needs lat/lng to call the
     //   gateway.homes.co.nz/properties/nearby endpoint. TM's
     //   Listings/{id}.json endpoint returns rich detail but omits

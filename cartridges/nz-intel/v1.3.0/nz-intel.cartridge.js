@@ -30,7 +30,7 @@ var IoCartridge_NzIntel = (function() {
   //      not newest (verified 2026-04-24: all 10 top results is-super-featured,
   //      timestamps not chronological). So we fetch the server's featured
   //      pool, then client-side sort to newest so Io's default presentation
-  //      matches Shonty's TM convention (newest-first). The "Featured" sort
+  //      matches the designer's TM convention (newest-first). The "Featured" sort
   //      option in the adapter re-sorts by flags.superFeatured for users
   //      who want the server's native featured lens.
   // v1.2.0 (S78): NEW MODULE — realestate-listing-detail.
@@ -935,7 +935,7 @@ var IoCartridge_NzIntel = (function() {
         // is featured-first (not newest); every sort param variant 400s
         // including the official-docs sort_order values. So we fetch the
         // 100-strong featured pool and re-sort client-side by publication/
-        // created-date desc so Io's default presentation matches Shonty's
+        // created-date desc so Io's default presentation matches the designer's
         // TM-convention (newest first). Ties broken by id desc so order is
         // stable across identical timestamps.
         listings.sort(function(a, b) {

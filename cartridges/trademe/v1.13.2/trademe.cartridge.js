@@ -6,7 +6,7 @@ var IoCartridge_Trademe = (function() {
   // v1.13.2 (Session 82, S82-AE): WARM AGAINST THE LOGO (not favicon).
   //   v1.13.1 used /a/favicon.ico; that path is likely served from a
   //   CDN edge that doesn't mint TM/Cloudflare session cookies.
-  //   Shonty's prior-art used the LOGO specifically — switching to
+  //   the designer's prior-art used the LOGO specifically — switching to
   //   /images/logo-2025/tm-logo-spotlight-2025.svg, which is the same
   //   asset every TM marketplace page loads on first paint, so the
   //   edge minting behaviour matches the real browser flow.
@@ -18,7 +18,7 @@ var IoCartridge_Trademe = (function() {
   //        + TM's session cookies are still minted by the edge — but
   //        the response is a few KB instead of 99-561KB. Faster, lighter,
   //        and matches the prior-art pattern (logo/favicon as session
-  //        primer) Shonty used successfully on a previous site.
+  //        primer) the designer used successfully on a previous site.
   //     2) AbortController wired into warmTmSession AND fetchTmSsr so
   //        the timeout actually severs the underlying socket. The
   //        v1.13.0 setTimeout pattern resolved the outer Promise but
@@ -151,7 +151,7 @@ var IoCartridge_Trademe = (function() {
   var meta = {
     id: "trademe",
     label: "Trade Me",
-    version: "1.13.2",  // Session 82 (S82-AE) — WARM AGAINST THE LOGO (not favicon). v1.13.1 used /a/favicon.ico, but v2.72.0 live test showed the legacy 4-filter fallback was firing — the SSR companion never got cookies back from the favicon path. Shonty's prior-art used the LOGO specifically. v1.13.2 warms against /images/logo-2025/tm-logo-spotlight-2025.svg, the asset every TM marketplace page loads on first paint, so the edge mints the same session cookies for that path that a real browser would get.
+    version: "1.13.2",  // Session 82 (S82-AE) — WARM AGAINST THE LOGO (not favicon). v1.13.1 used /a/favicon.ico, but v2.72.0 live test showed the legacy 4-filter fallback was firing — the SSR companion never got cookies back from the favicon path. the designer's prior-art used the LOGO specifically. v1.13.2 warms against /images/logo-2025/tm-logo-spotlight-2025.svg, the asset every TM marketplace page loads on first paint, so the edge mints the same session cookies for that path that a real browser would get.
     born: "Session 43",
     extracted_from: "sweep v1.11.0",
     modules: {
@@ -292,7 +292,7 @@ var IoCartridge_Trademe = (function() {
     return pairs;
   }
 
-  // v1.13.2: warm against the marketplace LOGO. Shonty's prior-art
+  // v1.13.2: warm against the marketplace LOGO. the designer's prior-art
   // pattern used the logo specifically (not the favicon) because the
   // logo is loaded by every browser on first paint of a TM page, so
   // the edge mints the same session cookies for that path. The favicon
